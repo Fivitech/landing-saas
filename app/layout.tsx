@@ -1,23 +1,28 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Lato } from "next/font/google"; // Import new fonts
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
 
-// Initialize font loaders
-const playfair = Playfair_Display({
+// Initialize font loader
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-playfair-display", // Assign CSS variable
-});
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400", "700"], // Load necessary weights
-  variable: "--font-lato", // Assign CSS variable
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: "ForexFlow | All-in-One Forex CRM Solution",
+  description: "A comprehensive platform with integrated client area, backoffice management, and IB portal designed specifically for forex brokers.",
+  keywords: ["forex", "CRM", "broker", "trading", "backoffice", "IB portal", "client management"],
+  authors: [{ name: "ForexFlow" }],
+  creator: "ForexFlow",
+  publisher: "ForexFlow",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
 }
 
 export default function RootLayout({
@@ -27,11 +32,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* Apply font variables to the body */}
-      <body className={`${playfair.variable} ${lato.variable} font-sans`}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
+      <body className={cn(
+        "min-h-screen bg-background font-sans antialiased",
+        inter.variable
+      )}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >

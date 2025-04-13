@@ -1,0 +1,173 @@
+{
+  "plans": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "description": "For emerging forex brokers",
+      "price": 1000,
+      "interval": "month",
+      "badge": "Popular",
+      "features": [
+        {
+          "included": true,
+          "text": "Up to 500 active clients"
+        },
+        {
+          "included": true,
+          "text": "Real-time market data (30 currency pairs)"
+        },
+        {
+          "included": true,
+          "text": "Basic introducing broker portal"
+        },
+        {
+          "included": true,
+          "text": "Standard client portal"
+        },
+        {
+          "included": true,
+          "text": "5 payment gateway integrations"
+        },
+        {
+          "included": true,
+          "text": "Basic lead capture tools"
+        },
+        {
+          "included": false,
+          "text": "Advanced analytics"
+        },
+        {
+          "included": false,
+          "text": "White-label solutions"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced",
+      "description": "For established forex brokers",
+      "price": 2500,
+      "interval": "month",
+      "badge": "Best Value",
+      "features": [
+        {
+          "included": true,
+          "text": "Up to 2,000 active clients"
+        },
+        {
+          "included": true,
+          "text": "Real-time market data (50+ currency pairs)"
+        },
+        {
+          "included": true,
+          "text": "Advanced introducing broker portal"
+        },
+        {
+          "included": true,
+          "text": "Enhanced client portal with analytics"
+        },
+        {
+          "included": true,
+          "text": "15+ payment gateway integrations"
+        },
+        {
+          "included": true,
+          "text": "Advanced lead capture and CRM tools"
+        },
+        {
+          "included": true,
+          "text": "Advanced analytics dashboard"
+        },
+        {
+          "included": true,
+          "text": "Basic white-label solutions"
+        }
+      ]
+    },
+    {
+      "id": "expert",
+      "name": "Expert",
+      "description": "For large-scale forex operations",
+      "price": 4500,
+      "interval": "month",
+      "billingNote": "Billed annually",
+      "badge": "Enterprise",
+      "features": [
+        {
+          "included": true,
+          "text": "Unlimited active clients"
+        },
+        {
+          "included": true,
+          "text": "Real-time market data (100+ currency pairs)"
+        },
+        {
+          "included": true,
+          "text": "Premium introducing broker portal"
+        },
+        {
+          "included": true,
+          "text": "Premium client portal with advanced features"
+        },
+        {
+          "included": true,
+          "text": "Unlimited payment gateway integrations"
+        },
+        {
+          "included": true,
+          "text": "Enterprise-grade lead capture and CRM"
+        },
+        {
+          "included": true,
+          "text": "Enterprise analytics with custom reports"
+        },
+        {
+          "included": true,
+          "text": "Full white-label solutions"
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "name": "Fully Customized",
+      "description": "Tailored solutions for your specific needs",
+      "price": null,
+      "priceDisplay": "Contact Sales",
+      "badge": "Premium",
+      "features": [
+        {
+          "included": true,
+          "text": "Custom client capacity"
+        },
+        {
+          "included": true,
+          "text": "Custom market data packages"
+        },
+        {
+          "included": true,
+          "text": "Custom introducing broker solutions"
+        },
+        {
+          "included": true,
+          "text": "Custom client portal development"
+        },
+        {
+          "included": true,
+          "text": "Custom payment integrations"
+        },
+        {
+          "included": true,
+          "text": "Custom CRM and lead management"
+        },
+        {
+          "included": true,
+          "text": "Custom analytics and reporting"
+        },
+        {
+          "included": true,
+          "text": "Dedicated account manager"
+        }
+      ]
+    }
+  ]
+}
