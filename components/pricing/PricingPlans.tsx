@@ -52,7 +52,7 @@ export function PricingPlans() {
                   {plan.id === 'expert' && 'Comprehensive solution for high-volume forex brokerages.'}
                   {plan.id === 'custom' && 'Bespoke forex brokerage solutions tailored to your exact requirements.'}
                 </p>
-                <ul className="space-y-3 text-sm mb-8">
+                <ul className="space-y-3 text-sm mb-4">
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-center">
                       {feature.included ? (
@@ -64,6 +64,17 @@ export function PricingPlans() {
                     </li>
                   ))}
                 </ul>
+                
+                <div className="mb-4">
+                  <div className="text-sm font-medium text-primary mb-2">Available Add-ons:</div>
+                  <ul className="text-xs text-gray-600 space-y-1 pl-2">
+                    <li>• Additional payment gateways</li>
+                    <li>• Mobile client portal</li>
+                    <li>• Mobile CRM application</li>
+                    <li>• Custom reporting</li>
+                    <li>• Premium support</li>
+                  </ul>
+                </div>
               </CardContent>
               <CardFooter className="relative z-10">
                 <Button 
@@ -78,9 +89,43 @@ export function PricingPlans() {
         </div>
         
         <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-6">Need help choosing the right plan? Our team is ready to assist you.</p>
-          <Button asChild className="bg-white text-primary hover:bg-gray-50 border border-primary/20 px-8">
-            <Link href="/contact">Schedule a Demo</Link>
+          <div className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            Additional Services
+          </div>
+          <h3 className="text-2xl font-bold tracking-tighter md:text-3xl text-gray-900 mb-6">
+            Customize Your Plan With <span className="text-primary">Premium Add-ons</span>
+          </h3>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            Enhance your brokerage platform with these powerful extras, available with any plan
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-6xl mx-auto mb-12">
+            {pricingData.extras.map((extra) => (
+              <Card key={extra.id} className="border border-gray-200 shadow hover:shadow-md transition-all">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg">{extra.name}</CardTitle>
+                  <CardDescription className="text-sm">{extra.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="font-bold text-xl">
+                    {extra.price ? (
+                      <>
+                        ${extra.price}<span className="text-sm font-normal text-gray-500">/{extra.interval}</span>
+                      </>
+                    ) : (
+                      <span className="text-base">{extra.priceDisplay}</span>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <p className="text-gray-600 mb-6">
+            Need help choosing the right plan? Our team is ready to assist you.
+          </p>
+          <Button asChild className="rounded-full bg-primary hover:bg-primary/90 text-white px-8">
+            <Link href="/contact">Contact Sales</Link>
           </Button>
         </div>
       </div>

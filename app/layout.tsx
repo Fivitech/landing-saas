@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 
 // Initialize font loader
@@ -12,12 +13,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ForexFlow | All-in-One Forex CRM Solution",
+  title: "Fivitech | All-in-One Forex CRM Solution",
   description: "A comprehensive platform with integrated client area, backoffice management, and IB portal designed specifically for forex brokers.",
   keywords: ["forex", "CRM", "broker", "trading", "backoffice", "IB portal", "client management"],
-  authors: [{ name: "ForexFlow" }],
-  creator: "ForexFlow",
-  publisher: "ForexFlow",
+  authors: [{ name: "Fivitech" }],
+  creator: "Fivitech",
+  publisher: "Fivitech",
   formatDetection: {
     email: false,
     address: false,
@@ -46,6 +47,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

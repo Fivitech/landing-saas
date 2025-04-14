@@ -3,7 +3,7 @@
     {
       "id": "starter",
       "name": "Starter",
-      "description": "For emerging forex brokers",
+      "description": "Perfect for new forex brokerages",
       "price": 1000,
       "interval": "month",
       "badge": "Popular",
@@ -14,38 +14,38 @@
         },
         {
           "included": true,
-          "text": "Real-time market data (30 currency pairs)"
+          "text": "Multi-level IB system (up to 3 levels)"
         },
         {
           "included": true,
-          "text": "Basic introducing broker portal"
+          "text": "Intuitive client portal"
         },
         {
           "included": true,
-          "text": "Standard client portal"
+          "text": "1 additional payment gateway"
         },
         {
           "included": true,
-          "text": "5 payment gateway integrations"
+          "text": "Streamlined CRM dashboard"
         },
         {
           "included": true,
-          "text": "Basic lead capture tools"
+          "text": "Professional white-label solution"
+        },
+        {
+          "included": true,
+          "text": "Weekly platform updates"
         },
         {
           "included": false,
-          "text": "Advanced analytics"
-        },
-        {
-          "included": false,
-          "text": "White-label solutions"
+          "text": "Advanced performance analytics"
         }
       ]
     },
     {
       "id": "advanced",
       "name": "Advanced",
-      "description": "For established forex brokers",
+      "description": "Ideal for growing forex operations",
       "price": 2500,
       "interval": "month",
       "badge": "Best Value",
@@ -56,42 +56,42 @@
         },
         {
           "included": true,
-          "text": "Real-time market data (50+ currency pairs)"
+          "text": "Expanded IB network (up to 5 levels)"
         },
         {
           "included": true,
-          "text": "Advanced introducing broker portal"
+          "text": "Feature-rich client portal"
         },
         {
           "included": true,
-          "text": "Enhanced client portal with analytics"
+          "text": "5 payment gateway integrations"
         },
         {
           "included": true,
-          "text": "15+ payment gateway integrations"
+          "text": "Comprehensive CRM dashboard"
         },
         {
           "included": true,
-          "text": "Advanced lead capture and CRM tools"
+          "text": "Advanced analytics & reporting"
         },
         {
           "included": true,
-          "text": "Advanced analytics dashboard"
+          "text": "Complete white-label branding"
         },
         {
           "included": true,
-          "text": "Basic white-label solutions"
+          "text": "Priority support & updates"
         }
       ]
     },
     {
       "id": "expert",
-      "name": "Expert",
-      "description": "For large-scale forex operations",
+      "name": "Enterprise",
+      "description": "For established forex brokerages",
       "price": 4500,
       "interval": "month",
       "billingNote": "Billed annually",
-      "badge": "Enterprise",
+      "badge": "Ultimate",
       "features": [
         {
           "included": true,
@@ -99,75 +99,119 @@
         },
         {
           "included": true,
-          "text": "Real-time market data (100+ currency pairs)"
+          "text": "Unlimited IB network depth"
         },
         {
           "included": true,
-          "text": "Premium introducing broker portal"
+          "text": "Premium client portal ecosystem"
         },
         {
           "included": true,
-          "text": "Premium client portal with advanced features"
+          "text": "Unlimited payment integrations"
         },
         {
           "included": true,
-          "text": "Unlimited payment gateway integrations"
+          "text": "Enterprise-grade CRM suite"
         },
         {
           "included": true,
-          "text": "Enterprise-grade lead capture and CRM"
+          "text": "Custom analytics & business intelligence"
         },
         {
           "included": true,
-          "text": "Enterprise analytics with custom reports"
-        },
-        {
-          "included": true,
-          "text": "Full white-label solutions"
-        }
-      ]
-    },
-    {
-      "id": "custom",
-      "name": "Fully Customized",
-      "description": "Tailored solutions for your specific needs",
-      "price": null,
-      "priceDisplay": "Contact Sales",
-      "badge": "Premium",
-      "features": [
-        {
-          "included": true,
-          "text": "Custom client capacity"
-        },
-        {
-          "included": true,
-          "text": "Custom market data packages"
-        },
-        {
-          "included": true,
-          "text": "Custom introducing broker solutions"
-        },
-        {
-          "included": true,
-          "text": "Custom client portal development"
-        },
-        {
-          "included": true,
-          "text": "Custom payment integrations"
-        },
-        {
-          "included": true,
-          "text": "Custom CRM and lead management"
-        },
-        {
-          "included": true,
-          "text": "Custom analytics and reporting"
+          "text": "Fully customized white-label solution"
         },
         {
           "included": true,
           "text": "Dedicated account manager"
         }
       ]
+    },
+    {
+      "id": "custom",
+      "name": "Bespoke Solution",
+      "description": "Tailored to your exact requirements",
+      "price": null,
+      "priceDisplay": "Contact Sales",
+      "badge": "Custom",
+      "features": [
+        {
+          "included": true,
+          "text": "Fully customized client capacity"
+        },
+        {
+          "included": true,
+          "text": "Bespoke IB network architecture"
+        },
+        {
+          "included": true,
+          "text": "Custom-built client portal"
+        },
+        {
+          "included": true,
+          "text": "Tailored payment infrastructure"
+        },
+        {
+          "included": true,
+          "text": "Custom CRM & business workflows"
+        },
+        {
+          "included": true,
+          "text": "Proprietary analytics solutions"
+        },
+        {
+          "included": true,
+          "text": "Complete brand ownership"
+        },
+        {
+          "included": true,
+          "text": "Executive-level support team"
+        }
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "id": "additional-psp",
+      "name": "Additional Payment Gateway",
+      "description": "Expand your payment options",
+      "price": null,
+      "priceDisplay": "Contact Support"
+    },
+    {
+      "id": "additional-user",
+      "name": "Additional Admin User",
+      "description": "Add more team members",
+      "price": 25,
+      "interval": "user/month"
+    },
+    {
+      "id": "mobile-bundle",
+      "name": "Mobile Apps Bundle",
+      "description": "Client portal & CRM mobile apps",
+      "price": null,
+      "priceDisplay": "Contact Support"
+    },
+    {
+      "id": "custom-reports",
+      "name": "Custom Reports Package",
+      "description": "Tailored business intelligence",
+      "price": 500,
+      "priceDisplay": "one-time setup"
+    },
+    {
+      "id": "premium-support",
+      "name": "Premium Support Package",
+      "description": "24/7 dedicated support team",
+      "price": 1000,
+      "interval": "month"
+    },
+    {
+      "id": "custom-integration",
+      "name": "Custom Integration",
+      "description": "Connect with your existing systems",
+      "price": null,
+      "priceDisplay": "Contact Sales"
     }
   ]
 }

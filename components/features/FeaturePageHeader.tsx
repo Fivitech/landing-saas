@@ -27,7 +27,7 @@ export function FeaturePageHeader() {
             </span>
           </h1>
           <p className={`max-w-[900px] text-slate-300 md:text-xl/relaxed lg:text-xl/relaxed xl:text-xl/relaxed animate-fadeIn transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '0.6s' }}>
-            Discover the powerful tools and capabilities that make ForexFlow the leading platform for forex brokers.
+            Discover the powerful tools and capabilities that make Fivitech the leading platform for forex brokers.
           </p>
         </div>
       </div>

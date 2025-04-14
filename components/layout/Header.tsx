@@ -25,7 +25,7 @@ export function Header() {
             Contact
           </Link>
           <Button variant="outline" asChild>
-            <Link href="/signup">Get Started</Link>
+            <Link href="/contact">Get Started</Link>
           </Button>
         </nav>
 
@@ -54,7 +54,7 @@ export function Header() {
                   Contact
                 </Link>
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90 mt-4" asChild>
-                  <Link href="/signup">Get Started</Link>
+                  <Link href="/contact">Get Started</Link>
                 </Button>
               </nav>
             </SheetContent>

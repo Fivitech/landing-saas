@@ -19,7 +19,7 @@ export function CtaSection() {
               Ready to <span className="text-primary">Transform</span> Your Forex Brokerage?
             </h2>
             <p className="mx-auto max-w-[700px] text-slate-300 md:text-xl/relaxed">
-              Join hundreds of forex brokers who have streamlined their operations, increased client satisfaction, and boosted their profitability with ForexFlow.
+              Join hundreds of forex brokers who have streamlined their operations, increased client satisfaction, and boosted their profitability with Fivitech.
             </p>
           </div>
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
@@ -28,7 +28,7 @@ export function CtaSection() {
               className="rounded-full shadow-lg bg-primary text-white hover:bg-primary/90 hover:shadow-xl" 
               asChild
             >
-              <Link href="/signup">Start Your Free Trial</Link>
+              <Link href="/contact">Start Your Free Trial</Link>
             </Button>
             <Button 
               variant="outline" 
@@ -36,7 +36,7 @@ export function CtaSection() {
               className="rounded-full shadow-lg border-2 border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:shadow-xl backdrop-blur-sm" 
               asChild
             >
-              <Link href="/demo">Schedule a Demo</Link>
+              <Link href="/contact">Schedule a Demo</Link>
             </Button>
           </div>
           <p className="mt-6 text-sm text-white/70">

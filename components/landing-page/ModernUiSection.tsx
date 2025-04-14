@@ -53,7 +53,7 @@ export function ModernUiSection() {
           </div>
           
           <div className="flex justify-center">
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-xl">
               <div className="bg-black/20 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden border border-white/10">
                 <div className="h-10 bg-black/30 flex items-center px-4">
                   <div className="flex space-x-2">
@@ -63,15 +63,15 @@ export function ModernUiSection() {
                   </div>
                   <div className="text-white/70 text-xs font-medium ml-auto">Dashboard</div>
                 </div>
-                <div className="p-6">
-                  <div className="w-full h-[240px] bg-gradient-to-br from-black/40 to-black/20 rounded-lg mb-6 border border-white/5 shadow-inner flex items-center justify-center">
-                    <div className="text-primary text-6xl">📊</div>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="w-full h-4 bg-white/5 rounded-full"></div>
-                    <div className="w-3/4 h-4 bg-white/5 rounded-full"></div>
-                    <div className="w-5/6 h-4 bg-white/5 rounded-full"></div>
-                  </div>
+                <div className="overflow-hidden">
+                  <Image 
+                    src="/accounts.png" 
+                    alt="Forex account management dashboard" 
+                    width={1200} 
+                    height={800}
+                    className="w-full object-contain"
+                    priority
+                  />
                 </div>
               </div>
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/30 rounded-full blur-2xl"></div>

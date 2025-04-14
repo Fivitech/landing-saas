@@ -61,16 +61,16 @@ export function FaqSection() {
 
 const faqs = [
   {
-    question: "How long does it take to implement ForexFlow?",
+    question: "How long does it take to implement Fivitech?",
     answer: "The implementation timeline depends on your specific requirements and the complexity of your existing systems. Typically, basic implementation can be completed in 2-4 weeks. For more complex setups with custom integrations, it may take 4-8 weeks. Our team works closely with you throughout the process to ensure a smooth transition."
   },
   {
-    question: "Can ForexFlow integrate with my existing trading platforms?",
-    answer: "Yes, ForexFlow is designed to integrate seamlessly with all major trading platforms including MetaTrader 4, MetaTrader 5, and cTrader. We also offer custom API integrations for proprietary trading platforms. Our team can provide a detailed compatibility assessment for your specific setup."
+    question: "Can Fivitech integrate with my existing trading platforms?",
+    answer: "Yes, Fivitech is designed to integrate seamlessly with all major trading platforms including MetaTrader 4, MetaTrader 5, and cTrader. We also offer custom API integrations for proprietary trading platforms. Our team can provide a detailed compatibility assessment for your specific setup."
   },
   {
-    question: "Is my data secure with ForexFlow?",
-    answer: "Absolutely. Security is our top priority. ForexFlow employs industry-leading security measures including end-to-end encryption, regular security audits, and compliance with international data protection regulations. All data is stored in secure, redundant data centers with 24/7 monitoring."
+    question: "Is my data secure with Fivitech?",
+    answer: "Absolutely. Security is our top priority. Fivitech employs industry-leading security measures including end-to-end encryption, regular security audits, and compliance with international data protection regulations. All data is stored in secure, redundant data centers with 24/7 monitoring."
   },
   {
     question: "Can I customize the client portal to match my brand?",

@@ -10,13 +10,13 @@ export function TestimonialsSection() {
             Trusted by Forex Brokers Worldwide
           </h2>
           <p className="mt-4 text-gray-600 md:text-xl max-w-3xl mx-auto">
-            Hear what our clients have to say about how ForexFlow has transformed their brokerage operations.
+            Hear what our clients have to say about how Fivitech has transformed their brokerage operations.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <TestimonialCard 
-            quote="ForexFlow has completely transformed how we manage our IB relationships. The automated commission calculations alone have saved us countless hours every month."
+            quote="Fivitech has completely transformed how we manage our IB relationships. The automated commission calculations alone have saved us countless hours every month."
             author="Sarah Johnson"
             role="CEO, FX Capital Partners"
             imageSrc="/testimonials/person1.jpg"
@@ -28,7 +28,7 @@ export function TestimonialsSection() {
             imageSrc="/testimonials/person2.jpg"
           />
           <TestimonialCard 
-            quote="We've seen a 40% increase in client retention since implementing ForexFlow. The client portal provides exactly what traders need to stay engaged."
+            quote="We've seen a 40% increase in client retention since implementing Fivitech. The client portal provides exactly what traders need to stay engaged."
             author="Elena Rodriguez"
             role="Head of Client Relations, EuroFX"
             imageSrc="/testimonials/person3.jpg"

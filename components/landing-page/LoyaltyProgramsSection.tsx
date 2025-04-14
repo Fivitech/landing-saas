@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Gift, Award, TrendingUp, Zap } from "lucide-react";
+import { Gift, Award, TrendingUp, Zap, Users } from "lucide-react";
 
 export function LoyaltyProgramsSection() {
   return (
@@ -42,15 +42,60 @@ export function LoyaltyProgramsSection() {
           </div>
           
           <div className="flex justify-center">
-            <div className="relative w-[350px] h-[350px] md:w-[450px] md:h-[450px] rounded-full bg-gradient-to-r from-slate-50 to-white flex items-center justify-center shadow-xl">
-              <div className="absolute inset-0 rounded-full border-[2px] border-primary/10"></div>
-              <div className="bg-white p-10 rounded-2xl shadow-2xl border border-primary/10">
-                <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Gift className="h-10 w-10 text-primary" />
+            <div className="relative w-full max-w-lg">
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-xl"></div>
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/10 rounded-full blur-xl"></div>
+              
+              {/* Main visualization */}
+              <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden p-8 border border-gray-100 flex flex-col items-center">
+                {/* Central icon */}
+                <div className="relative mb-8">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-md animate-pulse"></div>
+                  <div className="relative z-10 w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                    <Award className="h-10 w-10 text-white" />
+                  </div>
                 </div>
-                <div className="text-center">
-                  <span className="block text-2xl font-bold text-gray-900">Reward Your Clients</span>
-                  <span className="block text-gray-600 mt-2">Increase retention by 40%</span>
+                
+                {/* Main heading */}
+                <h3 className="text-2xl font-bold text-gray-800 mb-2 text-center">Loyalty Rewards</h3>
+                <p className="text-gray-600 text-center mb-8 max-w-md">Increase client retention by up to <span className="text-primary font-bold">40%</span> with our customizable loyalty program</p>
+                
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-6 w-full mb-8">
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                      <Gift className="h-7 w-7 text-primary" />
+                    </div>
+                    <div className="text-sm font-medium text-gray-800">Customizable</div>
+                    <div className="text-xs text-gray-500">Reward Structure</div>
+                  </div>
+                  
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                      <TrendingUp className="h-7 w-7 text-primary" />
+                    </div>
+                    <div className="text-sm font-medium text-gray-800">Increased</div>
+                    <div className="text-xs text-gray-500">Trading Volume</div>
+                  </div>
+                  
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                      <Users className="h-7 w-7 text-primary" />
+                    </div>
+                    <div className="text-sm font-medium text-gray-800">Higher</div>
+                    <div className="text-xs text-gray-500">Client Retention</div>
+                  </div>
+                </div>
+                
+                {/* Progress visualization */}
+                <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden mb-2">
+                  <div className="bg-primary h-full rounded-full animate-pulse" style={{ width: '70%' }}></div>
+                </div>
+                
+                {/* Animated elements */}
+                <div className="flex justify-between w-full text-sm text-gray-500">
+                  <span>Basic Rewards</span>
+                  <span>Premium Benefits</span>
                 </div>
               </div>
             </div>

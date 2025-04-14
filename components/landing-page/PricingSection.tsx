@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
+import pricingData from "@/data/pricing.json";
 
 export function PricingSection() {
   return (
@@ -23,82 +24,75 @@ export function PricingSection() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          <PricingCard 
-            title="Starter"
-            price="$499"
-            period="per month"
-            description="Perfect for new brokers just getting started"
-            features={[
-              "Up to 500 active clients",
-              "Basic CRM functionality",
-              "Client portal",
-              "Email support",
-              "1 admin user",
-              "Basic reporting",
-              "MT4/MT5 integration"
-            ]}
-            ctaText="Get Started"
-            ctaLink="/signup?plan=starter"
-            popular={false}
-            accentColor="blue"
-          />
-          
-          <PricingCard 
-            title="Professional"
-            price="$999"
-            period="per month"
-            description="Ideal for growing brokerages"
-            features={[
-              "Up to 2,000 active clients",
-              "Advanced CRM tools",
-              "Client & IB portal",
-              "Priority email & chat support",
-              "5 admin users",
-              "Marketing automation",
-              "API access",
-              "Advanced analytics",
-              "Multi-level IB system",
-              "White-label options"
-            ]}
-            ctaText="Get Started"
-            ctaLink="/signup?plan=professional"
-            popular={true}
-            accentColor="primary"
-          />
-          
-          <PricingCard 
-            title="Enterprise"
-            price="Custom"
-            period="pricing"
-            description="For established brokers with advanced needs"
-            features={[
-              "Unlimited active clients",
-              "Full CRM suite",
-              "Custom client & IB portal",
-              "24/7 priority support",
-              "Unlimited admin users",
-              "Advanced marketing tools",
-              "Full API access",
-              "Dedicated account manager",
-              "Custom development",
-              "High-volume processing",
-              "Advanced security features",
-              "Disaster recovery"
-            ]}
-            ctaText="Contact Sales"
-            ctaLink="/contact?plan=enterprise"
-            popular={false}
-            accentColor="slate"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+          {pricingData.plans.map((plan) => (
+            <Card 
+              key={plan.id}
+              className={`border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col relative overflow-hidden ${plan.id === 'custom' ? 'bg-gradient-to-br from-primary/5 to-transparent' : ''}`}
+            >
+              {plan.badge && (
+                <div className="absolute top-0 right-0">
+                  <div className={`px-3 py-1 text-xs font-medium ${plan.id === 'custom' ? 'bg-primary/20' : 'bg-primary/10'} text-primary rounded-bl-lg`}>
+                    {plan.badge}
+                  </div>
+                </div>
+              )}
+              <CardHeader>
+                <CardTitle className="text-xl font-bold">{plan.name}</CardTitle>
+                <CardDescription className="text-gray-600">{plan.description}</CardDescription>
+                <div className="mt-4 flex items-baseline">
+                  {plan.price ? (
+                    <>
+                      <span className="text-3xl font-bold">${plan.price.toLocaleString()}</span>
+                      <span className="ml-1 text-sm font-normal text-gray-500">/{plan.interval}</span>
+                    </>
+                  ) : (
+                    <span className="text-xl font-medium text-gray-800">{plan.priceDisplay}</span>
+                  )}
+                </div>
+                {plan.billingNote && <p className="text-xs text-gray-500 mt-1">{plan.billingNote}</p>}
+              </CardHeader>
+              <CardContent className="flex-1 relative z-10">
+                <div className="h-px w-full bg-gray-100 my-4"></div>
+                <p className="mb-4 text-sm text-gray-600">
+                  {plan.id === 'starter' && 'Everything you need to start your forex brokerage business.'}
+                  {plan.id === 'advanced' && 'Advanced features for growing brokerages with higher volumes.'}
+                  {plan.id === 'expert' && 'Comprehensive solution for high-volume forex brokerages.'}
+                  {plan.id === 'custom' && 'Bespoke forex brokerage solutions tailored to your exact requirements.'}
+                </p>
+                <ul className="space-y-3 text-sm mb-4">
+                  {plan.features.map((feature, index) => (
+                    <li key={index} className="flex items-center">
+                      {feature.included ? (
+                        <Check className="mr-2 h-4 w-4 text-primary" />
+                      ) : (
+                        <X className="mr-2 h-4 w-4 text-gray-400" />
+                      )}
+                      <span className={feature.included ? '' : 'text-gray-400'}>{feature.text}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+
+              </CardContent>
+              <CardFooter>
+                <Button 
+                  asChild 
+                  className={`w-full ${plan.id === 'custom' ? 'bg-primary/90 hover:bg-primary text-white border border-primary/20' : 'bg-primary hover:bg-primary/90 text-white'}`}
+                >
+                  <Link href="/contact">{plan.id === 'custom' ? 'Contact Sales' : 'Get Started'}</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
         </div>
         
         <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-4">
-            Need a custom solution? We can tailor our platform to your specific requirements.
+          <p className="text-gray-600 mb-6">
+            Need help choosing the right plan? Our team is ready to assist you.
           </p>
-          <Button variant="outline" asChild>
-            <Link href="/contact">Contact Our Sales Team</Link>
+          <Button asChild className="rounded-full bg-primary hover:bg-primary/90 text-white px-8">
+            <Link href="/contact">Contact Sales</Link>
           </Button>
         </div>
       </div>

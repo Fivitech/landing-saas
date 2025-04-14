@@ -16,7 +16,10 @@ import {
   Building, 
   BarChart,
   ChevronRight,
-  ArrowRight
+  ArrowRight,
+  Smartphone,
+  Shield,
+  Globe
 } from "lucide-react";
 
 import { useEffect, useState, useRef } from "react";
@@ -95,84 +98,97 @@ export function FeaturesHighlightSection() {
 
 const features = [
   {
-    icon: <BarChart2 className="h-5 w-5 text-blue-500" />,
+    icon: <Smartphone className="h-5 w-5 text-blue-500" />,
+    title: "Mobile Applications",
+    description: "Branded iOS and Android apps for clients and brokers with real-time trading capabilities.",
+    colorClass: "blue",
+    benefits: ["White-labeled mobile experience", "Push notifications", "Biometric authentication"]
+  },
+  {
+    icon: <BarChart2 className="h-5 w-5 text-indigo-500" />,
     title: "Advanced Reporting",
     description: "Comprehensive reports for compliance, performance tracking, and business intelligence.",
-    colorClass: "blue"
+    colorClass: "indigo",
+    benefits: ["Customizable dashboards", "Automated report scheduling", "Export in multiple formats"]
   },
   {
-    icon: <LineChart className="h-5 w-5 text-indigo-500" />,
+    icon: <LineChart className="h-5 w-5 text-violet-500" />,
     title: "Powerful Analytics",
     description: "Deep insights into trading patterns, client behavior, and profitability metrics.",
-    colorClass: "indigo"
+    colorClass: "violet",
+    benefits: ["Real-time data visualization", "Predictive analytics", "Performance benchmarking"]
   },
   {
-    icon: <Settings className="h-5 w-5 text-violet-500" />,
+    icon: <Settings className="h-5 w-5 text-purple-500" />,
     title: "Customizable Workflows",
     description: "Tailor the platform to your specific business processes and requirements.",
-    colorClass: "violet"
+    colorClass: "purple",
+    benefits: ["Drag-and-drop workflow builder", "Automated task assignment", "Custom approval chains"]
   },
   {
-    icon: <Users className="h-5 w-5 text-purple-500" />,
+    icon: <Users className="h-5 w-5 text-pink-500" />,
     title: "Client Management",
     description: "Comprehensive CRM tools for managing client relationships and communications.",
-    colorClass: "purple"
+    colorClass: "pink",
+    benefits: ["Automated onboarding", "Document verification", "Client segmentation"]
   },
   {
-    icon: <UserPlus className="h-5 w-5 text-pink-500" />,
+    icon: <UserPlus className="h-5 w-5 text-red-500" />,
     title: "IB & Affiliate Portal",
     description: "Powerful tools for managing introducing brokers and affiliate programs.",
-    colorClass: "pink"
+    colorClass: "red",
+    benefits: ["Multi-level commission structures", "Performance tracking", "Marketing materials"]
   },
   {
-    icon: <MessageSquare className="h-5 w-5 text-red-500" />,
-    title: "Integrated Messaging",
-    description: "Built-in communication tools for client engagement and support.",
-    colorClass: "red"
-  },
-  {
-    icon: <Share2 className="h-5 w-5 text-orange-500" />,
-    title: "Social Trading",
-    description: "Enable copy trading functionality to increase engagement and trading volume.",
-    colorClass: "orange"
+    icon: <Shield className="h-5 w-5 text-orange-500" />,
+    title: "Enterprise Security",
+    description: "Bank-grade protection for your brokerage and client data with advanced encryption.",
+    colorClass: "orange",
+    benefits: ["Multi-factor authentication", "Role-based access control", "Audit logging"]
   },
   {
     icon: <CreditCard className="h-5 w-5 text-amber-500" />,
     title: "Payment Processing",
     description: "Seamless integration with multiple payment providers and banking solutions.",
-    colorClass: "amber"
+    colorClass: "amber",
+    benefits: ["Multiple payment methods", "Automated reconciliation", "Fraud prevention"]
   },
   {
     icon: <Wallet className="h-5 w-5 text-yellow-500" />,
     title: "Wallet Management",
     description: "Secure client fund management with multi-currency support.",
-    colorClass: "yellow"
+    colorClass: "yellow",
+    benefits: ["Multi-currency support", "Automated deposits/withdrawals", "Balance monitoring"]
   },
   {
     icon: <Copy className="h-5 w-5 text-lime-500" />,
     title: "White Labeling",
     description: "Fully customizable branding options for a seamless client experience.",
-    colorClass: "lime"
+    colorClass: "lime",
+    benefits: ["Custom domain setup", "Branded email templates", "Customizable interface"]
   },
   {
-    icon: <Building className="h-5 w-5 text-green-500" />,
+    icon: <Globe className="h-5 w-5 text-green-500" />,
     title: "Multi-Entity Support",
-    description: "Manage multiple brands or entities from a single platform.",
-    colorClass: "green"
+    description: "Manage multiple brands or entities from a single unified platform.",
+    colorClass: "green",
+    benefits: ["Centralized management", "Entity-specific reporting", "Shared resource pools"]
   },
   {
     icon: <BarChart className="h-5 w-5 text-teal-500" />,
     title: "Risk Management",
     description: "Advanced tools for monitoring and managing trading risk in real-time.",
-    colorClass: "teal"
+    colorClass: "teal",
+    benefits: ["Real-time exposure monitoring", "Automated risk alerts", "Position management"]
   }
 ];
 
-function FeatureCard({ icon, title, description, colorClass }: {
+function FeatureCard({ icon, title, description, colorClass, benefits }: {
   icon: React.ReactNode;
   title: string;
   description: string;
   colorClass: string;
+  benefits?: string[];
 }) {
   // Get the appropriate background classes based on the color
   const getBgGlowClass = () => {
@@ -212,23 +228,36 @@ function FeatureCard({ icon, title, description, colorClass }: {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl border border-gray-100 transition-all duration-500 hover:translate-y-[-5px] group relative overflow-hidden h-full">
-      <div className={`absolute top-0 right-0 w-24 h-24 ${getBgGlowClass()} rounded-full blur-xl transform translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-700`}></div>
-      
-      <div className={`${getIconBgClass()} w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-        {icon}
+    <div className={`group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 ${getBgGlowClass()} hover:translate-y-[-2px]`}>
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="relative z-10">
+        <div className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full ${getIconBgClass()}`}>
+          {icon}
+        </div>
+        <h3 className="mb-2 text-lg font-semibold">{title}</h3>
+        <p className="text-sm text-gray-600 mb-4">{description}</p>
+        
+        {benefits && benefits.length > 0 && (
+          <div className="mt-3 pt-3 border-t border-gray-100">
+            <ul className="space-y-1">
+              {benefits.map((benefit, i) => (
+                <li key={i} className="text-xs text-gray-500 flex items-center">
+                  <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2 flex-shrink-0"></span>
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        <Link 
+          href={`/features#${title.toLowerCase().replace(/\s+/g, '-')}`} 
+          className="text-primary font-medium inline-flex items-center mt-4 text-xs hover:text-primary/80 transition-colors duration-300"
+        >
+          Learn more
+          <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+        </Link>
       </div>
-      
-      <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-primary transition-colors duration-300">{title}</h3>
-      <p className="text-gray-600 mb-4">{description}</p>
-      
-      <Link 
-        href={`/features#${title.toLowerCase().replace(/\s+/g, '-')}`} 
-        className="text-primary font-medium inline-flex items-center group-hover:text-primary/80 transition-colors duration-300 absolute bottom-6"
-      >
-        Learn more
-        <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-      </Link>
       
       {/* Add subtle animated accent */}
       <div className="absolute bottom-0 left-0 w-0 h-1 bg-primary group-hover:w-full transition-all duration-500 ease-in-out"></div>

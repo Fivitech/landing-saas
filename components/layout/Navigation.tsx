@@ -1,10 +1,11 @@
 "use client"
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Globe, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -18,8 +19,14 @@ export function Navigation() {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <Globe className="h-6 w-6 text-primary" />
-          <span className="text-xl font-bold">ForexFlow</span>
+          <Image 
+            src="/fivitechLogo.png" 
+            alt="Fivitech Logo" 
+            width={48} 
+            height={48} 
+            className="h-12 w-auto" 
+          />
+          <span className="text-xl font-bold">Fivitech</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -49,7 +56,7 @@ export function Navigation() {
             Contact
           </Link>
           <Button className="rounded-full shadow-lg bg-primary text-white hover:bg-primary/90 hover:shadow-xl" asChild>
-            <Link href="/signup">Get Started</Link>
+            <Link href="/contact">Get Started</Link>
           </Button>
         </nav>
 
@@ -65,8 +72,14 @@ export function Navigation() {
             <SheetContent side="left">
               <nav className="grid gap-6 text-lg font-medium mt-6">
                 <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
-                  <Globe className="h-6 w-6 text-primary" />
-                  <span className="">ForexFlow</span>
+                  <Image 
+                    src="/fivitechLogo.png" 
+                    alt="Fivitech Logo" 
+                    width={40} 
+                    height={40} 
+                    className="h-10 w-auto" 
+                  />
+                  <span className="">Fivitech</span>
                 </Link>
                 <Link 
                   href="/" 
@@ -93,7 +106,7 @@ export function Navigation() {
                   Contact
                 </Link>
                 <Button className="rounded-full shadow-lg bg-primary text-white hover:bg-primary/90 hover:shadow-xl mt-4" asChild>
-                  <Link href="/signup">Get Started</Link>
+                  <Link href="/contact">Get Started</Link>
                 </Button>
               </nav>
             </SheetContent>
