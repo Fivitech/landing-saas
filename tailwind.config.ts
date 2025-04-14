@@ -94,10 +94,31 @@ const config: Config = {
             height: "0",
           },
         },
+        "dashoffset": {
+          "0%": { strokeDashoffset: "400" },
+          "100%": { strokeDashoffset: "0" }
+        },
+        "pulse-glow": {
+          "0%": { opacity: "0.4", transform: "scale(0.8)" },
+          "50%": { opacity: "1", transform: "scale(1.1)" },
+          "100%": { opacity: "0.4", transform: "scale(0.8)" }
+        },
+        "grow": {
+          "0%": { width: "0%" },
+          "100%": { width: "75%" }
+        },
+        "count": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "dashoffset": "dashoffset 2s ease-in-out forwards",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "grow": "grow 2s ease-out forwards",
+        "count": "count 1s ease-out forwards",
       },
     },
   },

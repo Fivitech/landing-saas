@@ -33,13 +33,15 @@ export function HeroSection() {
             }`}
           >
             <div className="space-y-4">
+              <div className="mb-4">
+                <span className="text-sm font-medium inline-block px-3 py-1 bg-primary/10 rounded-full text-primary">
+                  Fivitech Technologies
+                </span>
+              </div>
               <h1
                 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none animate-fadeIn"
                 style={{ animationDelay: "0.4s" }}
               >
-                <span className="text-sm font-medium block mb-2 text-primary">
-                  Fivitech Technologies
-                </span>
                 The Complete{" "}
                 <span className="text-primary relative inline-block">
                   Forex Brokerage

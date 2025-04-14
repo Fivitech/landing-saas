@@ -6,6 +6,7 @@ import { FeaturesHighlightSection } from "@/components/landing-page/FeaturesHigh
 import { LoyaltyProgramsSection } from "@/components/landing-page/LoyaltyProgramsSection";
 import { ModernUiSection } from "@/components/landing-page/ModernUiSection";
 import { UniqueFeatures } from "@/components/landing-page/UniqueFeatures";
+import { EnterprisePerformanceSection } from "@/components/landing-page/EnterprisePerformanceSection";
 
 import { PricingSection } from "@/components/landing-page/PricingSection";
 import { CtaSection } from "@/components/landing-page/CtaSection";
@@ -22,6 +23,7 @@ export default function Home() {
         <FeaturesHighlightSection />
         <ModernUiSection />
         <LoyaltyProgramsSection />
+        <EnterprisePerformanceSection />
         <UniqueFeatures />
         <PricingSection />
         <FaqSection />

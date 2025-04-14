@@ -47,55 +47,51 @@ export function LoyaltyProgramsSection() {
               <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/10 rounded-full blur-xl"></div>
               
               {/* Main visualization */}
-              <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden p-8 border border-gray-100 flex flex-col items-center">
+              <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-8">
                 {/* Central icon */}
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-md animate-pulse"></div>
-                  <div className="relative z-10 w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg">
-                    <Award className="h-10 w-10 text-white" />
+                <div className="mb-8 flex justify-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-md animate-pulse"></div>
+                    <div className="relative z-10 w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                      <Award className="h-10 w-10 text-white" />
+                    </div>
                   </div>
                 </div>
                 
-                {/* Main heading */}
-                <h3 className="text-2xl font-bold text-gray-800 mb-2 text-center">Loyalty Rewards</h3>
-                <p className="text-gray-600 text-center mb-8 max-w-md">Increase client retention by up to <span className="text-primary font-bold">40%</span> with our customizable loyalty program</p>
-                
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-6 w-full mb-8">
-                  <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                      <Gift className="h-7 w-7 text-primary" />
-                    </div>
-                    <div className="text-sm font-medium text-gray-800">Customizable</div>
-                    <div className="text-xs text-gray-500">Reward Structure</div>
+                {/* Simple metrics */}
+                <div className="space-y-6 mb-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-gray-800 mb-1 animate-fadeIn" style={{ animationDelay: '0.3s' }}>40%</div>
+                    <div className="text-sm text-gray-600">Higher Client Retention</div>
                   </div>
                   
-                  <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                      <TrendingUp className="h-7 w-7 text-primary" />
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-xl font-bold text-gray-800 mb-1 animate-fadeIn" style={{ animationDelay: '0.5s' }}>1,240</div>
+                      <div className="text-xs text-gray-600">Total Rewards</div>
                     </div>
-                    <div className="text-sm font-medium text-gray-800">Increased</div>
-                    <div className="text-xs text-gray-500">Trading Volume</div>
-                  </div>
-                  
-                  <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                      <Users className="h-7 w-7 text-primary" />
+                    
+                    <div>
+                      <div className="text-xl font-bold text-gray-800 mb-1 animate-fadeIn" style={{ animationDelay: '0.7s' }}>$600</div>
+                      <div className="text-xs text-gray-600">Avg. Value</div>
                     </div>
-                    <div className="text-sm font-medium text-gray-800">Higher</div>
-                    <div className="text-xs text-gray-500">Client Retention</div>
+                    
+                    <div>
+                      <div className="text-xl font-bold text-gray-800 mb-1 animate-fadeIn" style={{ animationDelay: '0.9s' }}>85%</div>
+                      <div className="text-xs text-gray-600">Engagement</div>
+                    </div>
                   </div>
                 </div>
                 
-                {/* Progress visualization */}
-                <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden mb-2">
-                  <div className="bg-primary h-full rounded-full animate-pulse" style={{ width: '70%' }}></div>
-                </div>
-                
-                {/* Animated elements */}
-                <div className="flex justify-between w-full text-sm text-gray-500">
-                  <span>Basic Rewards</span>
-                  <span>Premium Benefits</span>
+                {/* Simple progress bar */}
+                <div>
+                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-2">
+                    <div className="h-full bg-primary rounded-full animate-grow" style={{ width: '0%' }}></div>
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-500">
+                    <span>Basic</span>
+                    <span>Premium</span>
+                  </div>
                 </div>
               </div>
             </div>
