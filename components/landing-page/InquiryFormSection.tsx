@@ -66,8 +66,8 @@ export function InquiryFormSection() {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send inquiry. Please try again.",
+        title: "We couldn't process your request",
+        description: "Our email system seems to be busy at the moment. Please give us a call instead - we'd be happy to assist you directly!",
       });
     } finally {
       setIsSubmitting(false);
