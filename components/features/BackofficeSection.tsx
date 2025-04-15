@@ -12,7 +12,7 @@ export function BackofficeSection() {
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Comprehensive Backoffice System</h2>
           
           <p className="text-gray-600 md:text-xl/relaxed max-w-[700px]">
-            Fivitech Technologies empowers your operations team with powerful tools to manage clients, transactions, and business processes efficiently.
+            Fivi Technologies empowers your operations team with powerful tools to manage clients, transactions, and business processes efficiently.
           </p>
         </div>
         

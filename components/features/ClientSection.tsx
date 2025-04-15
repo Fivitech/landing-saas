@@ -12,7 +12,7 @@ export function ClientSection() {
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Seamless Client Experience</h2>
           
           <p className="text-gray-600 md:text-xl/relaxed max-w-[700px] mt-2">
-            Fivitech Technologies provides your clients with a powerful yet intuitive portal to manage their accounts, access trading platforms, and more.
+            Fivi Technologies provides your clients with a powerful yet intuitive portal to manage their accounts, access trading platforms, and more.
           </p>
         </div>
         

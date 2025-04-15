@@ -12,7 +12,7 @@ export function BrokerSection() {
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Comprehensive Introducing Broker System</h2>
           
           <p className="text-gray-600 md:text-xl/relaxed max-w-[700px]">
-            Fivitech Technologies empowers your introducing brokers with powerful tools to grow their business and manage their clients effectively.
+            Fivi Technologies empowers your introducing brokers with powerful tools to grow their business and manage their clients effectively.
           </p>
         </div>
         
