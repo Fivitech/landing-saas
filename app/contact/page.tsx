@@ -9,7 +9,7 @@ export default function ContactPage() {
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 to-slate-100">
       <Navigation />
-      <main className="flex-1 pt-16">
+      <main className="flex-1">
         <ContactHeader />
         
         <section className="w-full py-12 md:py-24 lg:py-32">

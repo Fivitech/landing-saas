@@ -49,8 +49,8 @@ export function InquiryFormSection() {
 
       if (response.ok) {
         toast({
-          title: "Success!",
-          description: "Your inquiry has been sent. We'll get back to you soon.",
+          title: "Message Sent Successfully!",
+          description: "Thank you for contacting us. Someone from our team will reach out to you shortly.",
         });
         // Reset form
         setFormData({

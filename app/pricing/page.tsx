@@ -16,7 +16,7 @@ export default function PricingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 to-white">
       <Navigation />
-      <main className="flex-1 pt-16">
+      <main className="flex-1">
         <div className={`transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <PricingHeader />
         </div>
