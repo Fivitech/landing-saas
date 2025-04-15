@@ -4,7 +4,7 @@
       "id": "starter",
       "name": "Starter",
       "description": "Perfect for new forex brokerages",
-      "price": 1000,
+      "price": 1500,
       "interval": "month",
       "badge": "Popular",
       "features": [
@@ -46,7 +46,7 @@
       "id": "advanced",
       "name": "Advanced",
       "description": "Ideal for growing forex operations",
-      "price": 2500,
+      "price": 3000,
       "interval": "month",
       "badge": "Best Value",
       "features": [
@@ -88,7 +88,7 @@
       "id": "expert",
       "name": "Enterprise",
       "description": "For established forex brokerages",
-      "price": 4500,
+      "price": 5000,
       "interval": "month",
       "billingNote": "Billed annually",
       "badge": "Ultimate",
