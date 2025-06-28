@@ -18,15 +18,14 @@ export function Navigation() {
     <header className="sticky top-0 z-50 w-full bg-[hsl(220,25%,10%)] border-b border-white/10 shadow-sm">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center">
           <Image
             src="/fivitechLogo.png"
             alt="Fivitech Logo"
-            width={48}
-            height={48}
-            className="h-12 w-auto"
+            width={160}
+            height={60}
+            className="h-14 w-auto"
           />
-          <span className="text-xl font-bold text-white">Fivitech</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -71,11 +70,19 @@ export function Navigation() {
           >
             Contact
           </Link>
+          <Link
+            href="https://fivitech.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-gray-300 hover:text-white"
+          >
+            Other Services
+          </Link>
           <Button
             className="rounded-full shadow-lg bg-primary text-white hover:bg-primary/90 hover:shadow-xl transition-all duration-300"
             asChild
           >
-            <Link href="/contact">Get Started</Link>
+            <Link href="/contact">Request Demo</Link>
           </Button>
         </nav>
 
@@ -92,16 +99,15 @@ export function Navigation() {
               <nav className="grid gap-6 text-lg font-medium mt-6">
                 <Link
                   href="/"
-                  className="flex items-center gap-2 text-lg font-semibold"
+                  className="flex items-center text-lg font-semibold"
                 >
                   <Image
                     src="/fivitechLogo.png"
                     alt="Fivitech Logo"
-                    width={40}
-                    height={40}
-                    className="h-10 w-auto"
+                    width={120}
+                    height={45}
+                    className="h-12 w-auto"
                   />
-                  <span className="">Fivitech</span>
                 </Link>
                 <Link
                   href="/"
@@ -143,11 +149,19 @@ export function Navigation() {
                 >
                   Contact
                 </Link>
+                <Link
+                  href="https://fivitech.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Other Services
+                </Link>
                 <Button
                   className="rounded-full shadow-lg bg-primary text-white hover:bg-primary/90 hover:shadow-xl transition-all duration-300 mt-4"
                   asChild
                 >
-                  <Link href="/contact">Get Started</Link>
+                  <Link href="/contact">Request Demo</Link>
                 </Button>
               </nav>
             </SheetContent>

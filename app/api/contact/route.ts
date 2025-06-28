@@ -15,18 +15,21 @@ export async function POST(req: NextRequest) {
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.zoho.com",
+      host: "smtp.office365.com",
       port: 587,
       secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
+      tls: {
+        ciphers: 'SSLv3'
+      }
     });
 
     await transporter.sendMail({
-      from: '"Fivi Tech" <contact@fivitech.com>',
-      to: "contact@fivitech.com",
+      from: '"Fivi Technologies" <contact@fivitechnologies.com>',
+      to: "contact@fivitechnologies.com",
       subject: "New Contact Form Submission",
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
       html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`,

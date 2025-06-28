@@ -1,18 +1,22 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Globe, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <Globe className="h-6 w-6 text-primary" />
-          <span className="text-xl font-bold text-primary-foreground">
-            ForexFlow
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/fivitechLogo.png"
+            alt="Fivitech Logo"
+            width={160}
+            height={60}
+            className="h-14 w-auto"
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -35,8 +39,16 @@ export function Header() {
           >
             Contact
           </Link>
+          <Link
+            href="https://fivitech.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-primary-foreground hover:text-primary-foreground/80"
+          >
+            Other Services
+          </Link>
           <Button variant="secondary" asChild>
-            <Link href="/contact">Get Started</Link>
+            <Link href="/contact">Request Demo</Link>
           </Button>
         </nav>
 
@@ -53,10 +65,15 @@ export function Header() {
               <nav className="grid gap-6 text-lg font-medium mt-6">
                 <Link
                   href="/"
-                  className="flex items-center gap-2 text-lg font-semibold"
+                  className="flex items-center text-lg font-semibold"
                 >
-                  <Globe className="h-6 w-6 text-primary-foreground" />
-                  <span className="">ForexFlow</span>
+                  <Image
+                    src="/fivitechLogo.png"
+                    alt="Fivitech Logo"
+                    width={120}
+                    height={45}
+                    className="h-10 w-auto"
+                  />
                 </Link>
                 <Link
                   href="/features"
@@ -76,11 +93,19 @@ export function Header() {
                 >
                   Contact
                 </Link>
+                <Link
+                  href="https://fivitech.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Other Services
+                </Link>
                 <Button
                   className="bg-primary text-primary-foreground hover:bg-primary/90 mt-4"
                   asChild
                 >
-                  <Link href="/contact">Get Started</Link>
+                  <Link href="/contact">Request Demo</Link>
                 </Button>
               </nav>
             </SheetContent>

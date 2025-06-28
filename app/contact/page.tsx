@@ -32,7 +32,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-medium">Email</h3>
-                        <p className="text-sm text-muted-foreground">info@fivitech.com</p>
+                        <p className="text-sm text-muted-foreground">contact@fivitechnologies.com</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -41,7 +41,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-medium">Phone</h3>
-                        <p className="text-sm text-muted-foreground">+971 50 123 4567</p>
+                        <p className="text-sm text-muted-foreground">+971 56 881 9915</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -70,12 +70,12 @@ export default function ContactPage() {
                       <div className="flex flex-col gap-4">
                         <h3 className="font-medium">Social Media</h3>
                         <div className="flex gap-4">
-                          <a href="https://www.facebook.com/FiviTechnologies/" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
+                          <a href="https://www.facebook.com/fivitechnologies" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                             </svg>
                           </a>
-                          <a href="https://www.instagram.com/fivitechnologies/" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
+                          <a href="https://www.instagram.com/fivitechnologies" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                               <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
                               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />

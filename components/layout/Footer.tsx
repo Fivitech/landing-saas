@@ -30,6 +30,21 @@ export function Footer() {
                   <p>Fivitech Office, Ajman Free Zone</p>
                 </div>
               </div>
+              <div className="mt-3 space-y-2 text-slate-400 text-sm">
+                <p className="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                  <a href="tel:+971568819915" className="hover:text-white transition-colors">+971 56 881 9915</a>
+                </p>
+                <p className="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail">
+                    <rect width="20" height="16" x="2" y="4" rx="2"/>
+                    <path d="m22 7-10 5L2 7"/>
+                  </svg>
+                  <a href="mailto:contact@fivitechnologies.com" className="hover:text-white transition-colors">contact@fivitechnologies.com</a>
+                </p>
+              </div>
             </div>
           </div>
 
@@ -68,7 +83,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="https://fivitech.com"
+                  href="https://fivitech.com/what-we-do"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
@@ -78,9 +93,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="https://fivitech.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/contact"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
                   Contact
@@ -104,9 +117,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="https://fivitech.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/privacy-policy"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
                   Privacy Policy
@@ -114,9 +125,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="https://fivitech.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/terms-of-service"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
                   Terms of Service
@@ -124,9 +133,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="https://fivitech.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/cookie-policy"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
                   Cookie Policy
@@ -142,7 +149,7 @@ export function Footer() {
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link
-              href="https://www.facebook.com/FiviTechnologies/"
+              href="https://www.facebook.com/fivitechnologies"
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-400 hover:text-white transition-colors"
@@ -164,7 +171,7 @@ export function Footer() {
               </svg>
             </Link>
             <Link
-              href="https://www.instagram.com/fivitechnologies/"
+              href="https://www.instagram.com/fivitechnologies"
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-400 hover:text-white transition-colors"
