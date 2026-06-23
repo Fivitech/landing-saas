@@ -1,0 +1,16 @@
+/* Scoped typography for Variant C.
+   Fonts are loaded via next/font in page.tsx, exposed as CSS variables on the
+   .variant-c root. We map the `font-display` / `font-body` utilities locally so
+   we never have to touch the shared tailwind.config. */
+
+.variant-c {
+  font-family: var(--font-c-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+.variant-c .font-display {
+  font-family: var(--font-c-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.variant-c .font-body {
+  font-family: var(--font-c-body), ui-sans-serif, system-ui, sans-serif;
+}
