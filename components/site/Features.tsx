@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { features, type SiteFeature } from "@/data/site";
 import { IbPortalMockup, RebateMockup } from "@/components/site/FeatureMockups";
+import { KycMockup } from "@/components/site/KycMockup";
+import { PaymentMethods } from "@/components/site/PaymentMethods";
 
 export function Features({ compact = false }: { compact?: boolean }) {
   const rows = compact ? features.slice(0, 4) : features;
@@ -52,7 +54,15 @@ function FeatureVisual({ feature }: { feature: SiteFeature }) {
   if (feature.mockup) {
     return (
       <div className="aspect-[4/3]">
-        {feature.mockup === "ib-portal" ? <IbPortalMockup /> : <RebateMockup />}
+        {feature.mockup === "ib-portal" ? (
+          <IbPortalMockup />
+        ) : feature.mockup === "rebate" ? (
+          <RebateMockup />
+        ) : feature.mockup === "kyc" ? (
+          <KycMockup />
+        ) : (
+          <PaymentMethods />
+        )}
       </div>
     );
   }

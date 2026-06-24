@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Calendar, Heart, Eye, Search, X, SearchX, ArrowRight } from "lucide-react";
+import { BlogCover } from "@/components/blog/BlogCover";
 
 export type BlogCard = {
   id: string;
@@ -47,12 +48,10 @@ function PostCard({ post, index }: { post: BlogCard; index: number }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={post.imageUrl} alt={post.title} className="h-full w-full object-cover" loading="lazy" />
         ) : (
-          <div
-            className="absolute inset-0 opacity-40"
-            style={{
-              backgroundImage: "radial-gradient(hsl(var(--primary) / 0.16) 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
-            }}
+          <BlogCover
+            title={post.title}
+            slug={post.slug}
+            categoryColor={post.categories[0]?.color}
           />
         )}
         <div className="absolute left-4 top-4 z-10 flex flex-wrap gap-2">
@@ -94,15 +93,14 @@ function FeaturedPost({ post }: { post: BlogCard }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={post.imageUrl} alt={post.title} className="h-full w-full object-cover" />
         ) : (
-          <div
-            className="absolute inset-0 opacity-40"
-            style={{
-              backgroundImage: "radial-gradient(hsl(var(--primary) / 0.16) 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
-            }}
+          <BlogCover
+            title={post.title}
+            slug={post.slug}
+            categoryColor={post.categories[0]?.color}
+            showTitle={false}
           />
         )}
-        <div className="absolute bottom-8 left-8 text-xs uppercase tracking-[0.4em] text-foreground/30">
+        <div className="absolute bottom-8 left-8 z-10 text-xs uppercase tracking-[0.4em] text-foreground/40">
           Featured
         </div>
       </div>

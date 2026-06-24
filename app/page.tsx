@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { CtaFooter } from "@/components/site/CtaFooter";
 import { Features } from "@/components/site/Features";
 import { Hero } from "@/components/site/Hero";
+import { HomeContact } from "@/components/site/HomeContact";
 import { Marquee } from "@/components/site/Marquee";
 import { OrganizationJsonLd } from "@/components/site/SeoJsonLd";
 import { SiteShell } from "@/components/site/SiteShell";
@@ -23,6 +24,7 @@ export default function Home() {
       <Navigation />
       <main className="flex-1">
         <Hero />
+        <HomeContact />
         <Marquee />
         <Features compact />
         <Stats />

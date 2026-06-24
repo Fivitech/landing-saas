@@ -31,7 +31,36 @@ body {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
   }
-  
+
+  @keyframes mesh-drift {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    33%  { transform: translate3d(2.5%, -2%, 0) scale(1.06); }
+    66%  { transform: translate3d(-2%, 2.5%, 0) scale(1.04); }
+    100% { transform: translate3d(0, 0, 0) scale(1); }
+  }
+
+  @keyframes mesh-drift-slow {
+    0%   { transform: translate3d(0, 0, 0) scale(1.05); }
+    50%  { transform: translate3d(-3%, 2%, 0) scale(1); }
+    100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  }
+
+  .animate-mesh-drift {
+    animation: mesh-drift 22s ease-in-out infinite;
+  }
+
+  .animate-mesh-drift-slow {
+    animation: mesh-drift-slow 30s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-mesh-drift,
+    .animate-mesh-drift-slow,
+    .animate-float {
+      animation: none;
+    }
+  }
+
   .animate-fadeIn {
     opacity: 0;
     animation: fadeIn 0.8s ease-out forwards;
@@ -108,6 +137,17 @@ body {
     --gradient-text: linear-gradient(90deg, hsl(145 100% 38%), hsl(145 100% 45%), hsl(166 100% 50%));
     --shadow-glow: 0 0 42px hsl(145 100% 45% / 0.36);
     --shadow-soft: 0 24px 80px hsl(220 18% 8% / 0.10);
+    /* Ambient page background — clearly present in LIGHT mode without washing out text */
+    --ambient-mesh:
+      radial-gradient(42rem 42rem at 8% -6%, hsl(145 100% 45% / 0.20), transparent 60%),
+      radial-gradient(40rem 40rem at 96% 8%, hsl(174 100% 50% / 0.18), transparent 58%),
+      radial-gradient(46rem 46rem at 80% 96%, hsl(262 83% 65% / 0.16), transparent 60%),
+      radial-gradient(38rem 38rem at 18% 92%, hsl(145 90% 42% / 0.16), transparent 58%);
+    --ambient-mesh-2:
+      radial-gradient(34rem 34rem at 60% 30%, hsl(166 100% 50% / 0.12), transparent 60%),
+      radial-gradient(30rem 30rem at 30% 60%, hsl(262 83% 65% / 0.10), transparent 60%);
+    --ambient-grid: hsl(220 18% 8% / 0.05);
+    --ambient-grid-strong: hsl(220 18% 8% / 0.07);
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 221 83% 53%;
@@ -153,6 +193,17 @@ body {
     --gradient-text: linear-gradient(90deg, hsl(145 100% 45%), hsl(166 100% 50%), hsl(145 100% 45%));
     --shadow-glow: 0 0 50px hsl(145 100% 45% / 0.46);
     --shadow-soft: 0 28px 90px hsl(0 0% 0% / 0.35);
+    /* Ambient page background — richer, deeper glow in DARK mode */
+    --ambient-mesh:
+      radial-gradient(44rem 44rem at 6% -8%, hsl(145 100% 45% / 0.30), transparent 60%),
+      radial-gradient(42rem 42rem at 98% 6%, hsl(174 100% 50% / 0.26), transparent 58%),
+      radial-gradient(48rem 48rem at 82% 98%, hsl(262 83% 65% / 0.24), transparent 60%),
+      radial-gradient(40rem 40rem at 16% 94%, hsl(145 100% 45% / 0.22), transparent 58%);
+    --ambient-mesh-2:
+      radial-gradient(36rem 36rem at 60% 28%, hsl(166 100% 50% / 0.16), transparent 60%),
+      radial-gradient(32rem 32rem at 28% 62%, hsl(262 83% 65% / 0.16), transparent 60%);
+    --ambient-grid: hsl(0 0% 100% / 0.05);
+    --ambient-grid-strong: hsl(0 0% 100% / 0.07);
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 221 83% 53%;

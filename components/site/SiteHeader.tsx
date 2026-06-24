@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
@@ -18,9 +19,14 @@ export function SiteHeader() {
     >
       <div className="glass-panel mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-5 py-3">
         <Link href="/" className="flex items-center gap-2.5" aria-label="Fivitech FXCRM home">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-[13px] font-black text-primary-foreground shadow-[var(--shadow-glow)]">
-            F
-          </span>
+          <Image
+            src="/fivitech-mark.webp"
+            alt="Fivitech"
+            width={36}
+            height={36}
+            priority
+            className="h-9 w-9 drop-shadow-[0_0_14px_hsl(var(--primary)/0.35)]"
+          />
           <span className="text-[17px] font-bold tracking-tight">Fivitech</span>
         </Link>
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { contactDetails, navItems } from "@/data/site";
 
@@ -7,9 +8,13 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
         <div className="space-y-4">
           <Link href="/" className="flex items-center gap-2.5">
-            <span className="grid h-7 w-7 place-items-center rounded-lg bg-primary text-[12px] font-black text-primary-foreground">
-              F
-            </span>
+            <Image
+              src="/fivitech-mark.webp"
+              alt="Fivitech"
+              width={32}
+              height={32}
+              className="h-8 w-8"
+            />
             <span className="text-sm font-bold">Fivitech FXCRM</span>
           </Link>
           <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">

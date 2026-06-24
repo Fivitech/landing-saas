@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, Clock, Eye } from "lucide-react";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { SiteShell } from "@/components/site/SiteShell";
+import { BlogCover } from "@/components/blog/BlogCover";
 import { PortableBody } from "@/components/blog/PortableBody";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { ShareButtons } from "@/components/blog/ShareButtons";
@@ -95,10 +96,12 @@ function RelatedCard({ p }: { p: BlogPostSummary }) {
       href={`/blog/${p.slug.current}`}
       className="group glass-panel block overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1"
     >
-      <div className="relative aspect-[16/10] bg-gradient-to-br from-primary/30 via-[hsl(var(--cyan-accent))]/15 to-transparent">
-        {imageUrl && (
+      <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/30 via-[hsl(var(--cyan-accent))]/15 to-transparent">
+        {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={imageUrl} alt={p.title} className="h-full w-full object-cover" loading="lazy" />
+        ) : (
+          <BlogCover title={p.title} slug={p.slug.current} />
         )}
       </div>
       <div className="p-6">
@@ -228,18 +231,27 @@ export default async function BlogPostPage({
           </div>
         </header>
 
-        {mainImageUrl && (
-          <div className="mx-auto mb-16 max-w-[1100px] px-6">
-            <div className="glass-panel relative aspect-[16/9] overflow-hidden rounded-2xl">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+        <div className="mx-auto mb-16 max-w-[1100px] px-6">
+          <div className="glass-panel relative aspect-[16/9] overflow-hidden rounded-2xl">
+            {mainImageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={mainImageUrl}
                 alt={post.mainImage?.alt || post.title}
                 className="h-full w-full object-cover"
               />
-            </div>
+            ) : (
+              <BlogCover
+                title={post.title}
+                slug={post.slug.current}
+                categoryColor={post.categories?.filter(Boolean)[0]?.color}
+                categoryLabel={post.categories?.filter(Boolean)[0]?.title}
+                variant="hero"
+                showTitle={false}
+              />
+            )}
           </div>
-        )}
+        </div>
 
         <div className="mx-auto max-w-[720px] px-6">
           {post.body && <PortableBody value={post.body} />}

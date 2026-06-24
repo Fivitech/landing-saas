@@ -24,7 +24,7 @@ export const stats = [
   { value: "30+", label: "Countries served" },
 ];
 
-export type FeatureMockup = "ib-portal" | "rebate";
+export type FeatureMockup = "ib-portal" | "rebate" | "kyc" | "payments";
 
 export type SiteFeature = {
   icon: LucideIcon;
@@ -77,11 +77,7 @@ export const features: SiteFeature[] = [
     title: "KYC & Compliance",
     body: "Collect documents, monitor verification states, and keep onboarding moving without drowning your desk in manual follow-up.",
     bullets: ["Document flow", "Status tracking", "Compliance queue"],
-    image: "/screens/kyc-passport.webp",
-    alt: "Sample identity document used in the KYC verification flow",
-    imageWidth: 495,
-    imageHeight: 672,
-    imageFit: "contain",
+    mockup: "kyc",
     visualLabel: "KYC workflow",
   },
   {
@@ -89,11 +85,7 @@ export const features: SiteFeature[] = [
     title: "Payments & Wallets",
     body: "Connect regional PSPs, reconcile deposits and withdrawals, and keep wallet activity tied to client and trading-account history.",
     bullets: ["Multi-PSP", "Wallet ledger", "Auto reconcile"],
-    image: "/screens/payment-gateways.webp",
-    alt: "Supported payment gateway and processor logos",
-    imageWidth: 1500,
-    imageHeight: 146,
-    imageFit: "contain",
+    mockup: "payments",
     visualLabel: "Gateway stack",
   },
   {

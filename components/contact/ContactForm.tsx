@@ -1,14 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { useMemo, useState } from "react";
+import { ChevronDown, Loader2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 import { countries } from "@/data/countries";
+import { dialCodes, defaultDialCode, type DialCode } from "@/data/dialCodes";
 
 type FormData = {
   firstName: string;
@@ -44,7 +47,7 @@ function validate(data: FormData) {
   else if (!emailRegex.test(data.companyEmail)) errors.companyEmail = "Enter a valid company email";
   if (!data.companyName.trim()) errors.companyName = "Company name is required";
   if (!data.mobile.trim()) errors.mobile = "Mobile number is required";
-  else if (!phoneRegex.test(data.mobile)) errors.mobile = "Enter a valid mobile number";
+  else if (!phoneRegex.test(data.mobile.replace(/\s/g, ""))) errors.mobile = "Enter a valid mobile number";
   if (!data.country) errors.country = "Country is required";
 
   return errors;
@@ -54,6 +57,7 @@ export function ContactForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [dialCode, setDialCode] = useState<DialCode>(defaultDialCode);
   const [errors, setErrors] = useState<FormErrors>({});
 
   const setField = (field: keyof FormData, value: string) => {
@@ -72,7 +76,10 @@ export function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          mobile: `${dialCode.dialCode} ${formData.mobile.trim()}`,
+        }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Failed to send request");
@@ -82,6 +89,7 @@ export function ContactForm() {
         description: "Thanks. The Fivitech team will contact you shortly.",
       });
       setFormData(initialFormData);
+      setDialCode(defaultDialCode);
       setErrors({});
     } catch (error) {
       toast({
@@ -126,7 +134,13 @@ export function ContactForm() {
             <Input id="companyName" value={formData.companyName} onChange={(event) => setField("companyName", event.target.value)} autoComplete="organization" />
           </Field>
           <Field label="Mobile number" id="mobile" error={errors.mobile}>
-            <Input id="mobile" type="tel" value={formData.mobile} onChange={(event) => setField("mobile", event.target.value)} autoComplete="tel" placeholder="+971 56 881 9915" />
+            <PhoneField
+              dialCode={dialCode}
+              onDialCodeChange={setDialCode}
+              number={formData.mobile}
+              onNumberChange={(value) => setField("mobile", value)}
+              invalid={Boolean(errors.mobile)}
+            />
           </Field>
           <Field label="Country" id="country" error={errors.country}>
             <Select value={formData.country} onValueChange={(value) => setField("country", value)}>
@@ -157,6 +171,100 @@ function Field({ label, id, error, children }: { label: string; id: string; erro
       <Label htmlFor={id}>{label} <span className="text-primary">*</span></Label>
       {children}
       {error && <p className="text-sm text-destructive">{error}</p>}
+    </div>
+  );
+}
+
+function PhoneField({
+  dialCode,
+  onDialCodeChange,
+  number,
+  onNumberChange,
+  invalid,
+}: {
+  dialCode: DialCode;
+  onDialCodeChange: (value: DialCode) => void;
+  number: string;
+  onNumberChange: (value: string) => void;
+  invalid?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return dialCodes;
+    return dialCodes.filter(
+      (c) => c.name.toLowerCase().includes(q) || c.dialCode.includes(q) || c.iso.toLowerCase().includes(q),
+    );
+  }, [query]);
+
+  return (
+    <div
+      className={cn(
+        "flex h-10 w-full overflow-hidden rounded-md border border-input bg-background ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+        invalid && "border-destructive",
+      )}
+    >
+      <Popover open={open} onOpenChange={(next) => { setOpen(next); if (!next) setQuery(""); }}>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            aria-label={`Country code: ${dialCode.name} ${dialCode.dialCode}`}
+            className="flex shrink-0 items-center gap-1.5 border-r border-input bg-muted/40 px-3 text-sm font-medium transition hover:bg-muted/70 focus-visible:outline-none"
+          >
+            <span className="text-base leading-none">{dialCode.flag}</span>
+            <span className="tabular-nums">{dialCode.dialCode}</span>
+            <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent align="start" className="w-72 p-0">
+          <div className="flex items-center gap-2 border-b border-border px-3 py-2">
+            <Search className="h-4 w-4 text-muted-foreground" />
+            <input
+              autoFocus
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search country or code"
+              className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+            />
+          </div>
+          <div className="max-h-64 overflow-y-auto py-1">
+            {filtered.length === 0 ? (
+              <p className="px-3 py-4 text-center text-sm text-muted-foreground">No matches</p>
+            ) : (
+              filtered.map((c) => (
+                <button
+                  key={c.iso}
+                  type="button"
+                  onClick={() => {
+                    onDialCodeChange(c);
+                    setOpen(false);
+                    setQuery("");
+                  }}
+                  className={cn(
+                    "flex w-full items-center gap-3 px-3 py-2 text-left text-sm transition hover:bg-muted",
+                    c.iso === dialCode.iso && "bg-muted/60",
+                  )}
+                >
+                  <span className="text-base leading-none">{c.flag}</span>
+                  <span className="flex-1 truncate">{c.name}</span>
+                  <span className="tabular-nums text-muted-foreground">{c.dialCode}</span>
+                </button>
+              ))
+            )}
+          </div>
+        </PopoverContent>
+      </Popover>
+      <input
+        id="mobile"
+        type="tel"
+        inputMode="tel"
+        autoComplete="tel-national"
+        value={number}
+        onChange={(event) => onNumberChange(event.target.value)}
+        className="h-full w-full bg-transparent px-3 text-base outline-none placeholder:text-muted-foreground md:text-sm"
+      />
     </div>
   );
 }
