@@ -34,18 +34,24 @@ const panelGrid = {
   backgroundSize: "32px 32px",
 } as const;
 
-/** Animated number that counts up from 0 to `value` when scrolled into view. */
+/**
+ * Animated number that counts up from 0 to `value` when scrolled into view,
+ * then keeps "live ticking" with small +/- drifts so KPI tiles feel alive.
+ */
 function CountUp({
   value,
   prefix = "",
   suffix = "",
   decimals = 0,
+  drift = 0,
   className,
 }: {
   value: number;
   prefix?: string;
   suffix?: string;
   decimals?: number;
+  /** Max +/- drift applied on each live re-tick (0 disables live ticking). */
+  drift?: number;
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -58,13 +64,43 @@ function CountUp({
       setDisplay(value);
       return;
     }
+    let stopped = false;
+    let current = 0;
     const controls = animate(0, value, {
       duration: 1.4,
       ease: [0.22, 1, 0.36, 1],
-      onUpdate: (v) => setDisplay(v),
+      onUpdate: (v) => {
+        current = v;
+        setDisplay(v);
+      },
     });
-    return () => controls.stop();
-  }, [inView, value, reduce]);
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let liveControls: ReturnType<typeof animate> | undefined;
+    if (drift > 0) {
+      const tick = () => {
+        if (stopped) return;
+        const target = value + (Math.random() * 2 - 1) * drift;
+        liveControls = animate(current, target, {
+          duration: 1,
+          ease: "easeInOut",
+          onUpdate: (v) => {
+            current = v;
+            setDisplay(v);
+          },
+        });
+        timer = setTimeout(tick, 2800);
+      };
+      timer = setTimeout(tick, 2200);
+    }
+
+    return () => {
+      stopped = true;
+      controls.stop();
+      liveControls?.stop();
+      if (timer) clearTimeout(timer);
+    };
+  }, [inView, value, reduce, drift]);
 
   const formatted = display.toLocaleString("en-US", {
     minimumFractionDigits: decimals,
@@ -88,9 +124,9 @@ const navItems = [
 ];
 
 const kpis = [
-  { label: "Active clients", value: 8420, prefix: "", suffix: "", delta: "+6.2%" },
-  { label: "Deposits 24h", value: 312, prefix: "$", suffix: "K", delta: "+12.4%" },
-  { label: "Open tickets", value: 47, prefix: "", suffix: "", delta: "-9.1%" },
+  { label: "Active clients", value: 8420, prefix: "", suffix: "", delta: "+6.2%", drift: 14 },
+  { label: "Deposits 24h", value: 312, prefix: "$", suffix: "K", delta: "+12.4%", drift: 6 },
+  { label: "Open tickets", value: 47, prefix: "", suffix: "", delta: "-9.1%", drift: 2 },
 ];
 
 const rows = [
@@ -150,11 +186,15 @@ function EquityChart() {
         points={`0,56 ${points} 252,56`}
         fill="url(#crm-equity-fill)"
         initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: reduce ? 0 : 1 }}
+        animate={inView ? { opacity: reduce ? 1 : [1, 0.55, 1] } : {}}
+        transition={
+          reduce
+            ? { duration: 0.6 }
+            : { duration: 6, repeat: Infinity, delay: 1, ease: "easeInOut" }
+        }
       />
 
-      {/* drawing line */}
+      {/* drawing line — redraws softly on a loop */}
       <motion.polyline
         points={points}
         fill="none"
@@ -163,8 +203,12 @@ function EquityChart() {
         strokeLinecap="round"
         strokeLinejoin="round"
         initial={{ pathLength: reduce ? 1 : 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        animate={inView ? { pathLength: reduce ? 1 : [0, 1, 1] } : {}}
+        transition={
+          reduce
+            ? { duration: 0 }
+            : { duration: 6, times: [0, 0.25, 1], repeat: Infinity, ease: [0.22, 1, 0.36, 1] }
+        }
       />
 
       {/* pulsing leading dot */}
@@ -272,6 +316,7 @@ export function CrmDashboardMockup() {
                     value={kpi.value}
                     prefix={kpi.prefix}
                     suffix={kpi.suffix}
+                    drift={kpi.drift}
                     className="mt-1 block text-lg font-black tracking-tight tabular-nums"
                   />
                   <span
@@ -321,17 +366,18 @@ export function CrmDashboardMockup() {
                 transition={{ duration: 0.4, delay: 0.06 * i }}
                 className="relative grid grid-cols-[1.6fr_0.8fr_1fr_0.8fr] items-center gap-2 overflow-hidden border-b border-border/60 px-3 py-2.5 text-xs last:border-b-0"
               >
-                {/* shimmer sweep on the first (newest) row */}
-                {i === 0 && !reduce && (
+                {/* shimmer sweep cascading down the rows, one at a time */}
+                {!reduce && (
                   <motion.span
                     aria-hidden
                     className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-primary/10 to-transparent"
                     initial={{ x: 0 }}
                     animate={{ x: "400%" }}
                     transition={{
-                      duration: 2.4,
+                      duration: 1.8,
                       repeat: Infinity,
-                      repeatDelay: 2.6,
+                      repeatDelay: rows.length * 0.5,
+                      delay: 0.5 * i,
                       ease: "easeInOut",
                     }}
                   />
@@ -344,11 +390,17 @@ export function CrmDashboardMockup() {
                 </span>
                 <span className="tabular-nums text-muted-foreground">{r.id}</span>
                 <span>
-                  <span
-                    className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${statusTone[r.status]}`}
+                  <motion.span
+                    className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold ${statusTone[r.status]}`}
+                    animate={
+                      reduce || r.status !== "Pending"
+                        ? undefined
+                        : { opacity: [1, 0.55, 1] }
+                    }
+                    transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
                   >
                     {r.status}
-                  </span>
+                  </motion.span>
                 </span>
                 <span className="text-right font-semibold tabular-nums">
                   {r.vol}

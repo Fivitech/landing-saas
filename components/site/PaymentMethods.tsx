@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import { Banknote, Bitcoin, Smartphone, Wallet } from "lucide-react";
 
 /**
@@ -59,6 +60,48 @@ const methods: Method[] = [
   },
 ];
 
+/** Live-ticking deposit counter for the reconcile footer. */
+function DepositTicker({ reduce }: { reduce: boolean | null }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { margin: "-40px" });
+  const base = 48230;
+  const [val, setVal] = useState(base);
+
+  useEffect(() => {
+    if (!inView || reduce) {
+      setVal(base);
+      return;
+    }
+    let stopped = false;
+    let controls: ReturnType<typeof animate> | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let current = base;
+    const tick = () => {
+      if (stopped) return;
+      const next = current + Math.round(Math.random() * 320 + 40);
+      controls = animate(current, next, {
+        duration: 0.9,
+        ease: "easeOut",
+        onUpdate: (v) => setVal(Math.round(v)),
+      });
+      current = next;
+      timer = setTimeout(tick, 2200);
+    };
+    timer = setTimeout(tick, 1200);
+    return () => {
+      stopped = true;
+      controls?.stop();
+      if (timer) clearTimeout(timer);
+    };
+  }, [inView, reduce]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      ${val.toLocaleString("en-US")}
+    </span>
+  );
+}
+
 export function PaymentMethods() {
   const reduce = useReducedMotion();
   return (
@@ -84,58 +127,86 @@ export function PaymentMethods() {
           </span>
         </div>
 
-        {/* Methods grid */}
+        {/* Methods grid — a "live" highlight steps through each method */}
         <div className="mt-6 grid flex-1 grid-cols-2 gap-2.5">
-          {methods.map((m, i) => (
-            <motion.div
-              key={m.label}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.05 * i }}
-              className="flex items-center gap-3 rounded-xl border border-border bg-card/60 px-3 py-2.5"
-            >
-              <motion.span
-                className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-border bg-muted/60"
-                animate={
-                  reduce
-                    ? undefined
-                    : {
-                        borderColor: [
-                          "hsl(var(--border))",
-                          "hsl(var(--primary)/0.5)",
-                          "hsl(var(--border))",
-                        ],
-                      }
-                }
-                transition={{
-                  duration: 1.6,
-                  repeat: Infinity,
-                  repeatDelay: methods.length * 0.5,
-                  delay: 0.5 * i,
-                  ease: "easeInOut",
-                }}
+          {methods.map((m, i) => {
+            // one card is spotlighted at a time, cycling through the grid
+            const cycle = methods.length * 0.7;
+            const start = i * 0.7;
+            return (
+              <motion.div
+                key={m.label}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.05 * i }}
+                className="relative flex items-center gap-3 overflow-hidden rounded-xl border border-border bg-card/60 px-3 py-2.5"
               >
-                {m.mark}
-              </motion.span>
-              <div className="min-w-0 leading-tight">
-                <p className="truncate text-sm font-semibold">{m.label}</p>
-                <p className="truncate text-[11px] text-muted-foreground">{m.sub}</p>
-              </div>
-            </motion.div>
-          ))}
+                {/* spotlight wash sweeping through the cards */}
+                {!reduce && (
+                  <motion.span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-xl bg-primary/[0.08]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{
+                      duration: cycle,
+                      times: [start / cycle, (start + 0.35) / cycle, (start + 0.7) / cycle],
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                )}
+                <motion.span
+                  className="relative grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-border bg-muted/60"
+                  animate={
+                    reduce
+                      ? undefined
+                      : {
+                          borderColor: [
+                            "hsl(var(--border))",
+                            "hsl(var(--primary)/0.6)",
+                            "hsl(var(--border))",
+                          ],
+                          scale: [1, 1.08, 1],
+                        }
+                  }
+                  transition={{
+                    duration: cycle,
+                    times: [start / cycle, (start + 0.35) / cycle, (start + 0.7) / cycle],
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  {m.mark}
+                </motion.span>
+                <div className="relative min-w-0 leading-tight">
+                  <p className="truncate text-sm font-semibold">{m.label}</p>
+                  <p className="truncate text-[11px] text-muted-foreground">{m.sub}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Reconcile footer */}
+        {/* Reconcile footer — live deposit volume */}
         <div className="mt-4 flex items-center justify-between rounded-xl border border-primary/20 bg-primary/10 px-4 py-2.5">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Auto-reconciled to wallet ledger
-          </p>
-          <motion.span
-            className="h-2 w-2 rounded-full bg-primary shadow-[var(--shadow-glow)]"
-            animate={reduce ? undefined : { opacity: [1, 0.3, 1], scale: [1, 0.85, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          />
+          <div className="leading-tight">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Reconciled to wallet · 24h
+            </p>
+            <p className="text-sm font-black tracking-tight text-primary">
+              <DepositTicker reduce={reduce} />
+            </p>
+          </div>
+          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground">
+            Live
+            <motion.span
+              className="h-2 w-2 rounded-full bg-primary shadow-[var(--shadow-glow)]"
+              animate={reduce ? undefined : { opacity: [1, 0.3, 1], scale: [1, 0.85, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </span>
         </div>
       </div>
     </div>

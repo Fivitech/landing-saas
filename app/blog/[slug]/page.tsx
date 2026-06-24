@@ -19,16 +19,11 @@ import {
 } from "@/lib/sanity.queries";
 import { isSanityConfigured, urlFor } from "@/lib/sanity";
 import type { BlogPostSummary } from "@/lib/sanity.types";
+import { BlogCover } from "@/components/blog/BlogCover";
 
 export const revalidate = 60;
 
 const SITE_URL = "https://fxcrm.fivitechnologies.com";
-
-// Build-time generated per-post cover PNG (also the post's OG image). Used as the
-// hero/thumbnail whenever a post has no real mainImage.
-function coverImageUrl(slug: string): string {
-  return `/blog/${slug}/opengraph-image`;
-}
 
 // Empty when unconfigured so the build never hits Sanity. With Sanity wired up
 // these are pre-rendered at build time; unknown slugs still resolve at request
@@ -102,13 +97,18 @@ function RelatedCard({ p }: { p: BlogPostSummary }) {
       className="group glass-panel block overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/30 via-[hsl(var(--cyan-accent))]/15 to-transparent">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={imageUrl || coverImageUrl(p.slug.current)}
-          alt={p.title}
-          className="h-full w-full object-cover"
-          loading="lazy"
-        />
+        {imageUrl ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src={imageUrl} alt={p.title} className="h-full w-full object-cover" loading="lazy" />
+        ) : (
+          <BlogCover
+            title={p.title}
+            slug={p.slug.current}
+            category={p.categories?.[0]}
+            showTitle={false}
+            chrome={false}
+          />
+        )}
       </div>
       <div className="p-6">
         <h3 className="mb-3 line-clamp-2 text-lg font-semibold leading-snug transition-colors group-hover:text-primary">
@@ -239,12 +239,21 @@ export default async function BlogPostPage({
 
         <div className="mx-auto mb-16 max-w-[1100px] px-6">
           <div className="glass-panel relative aspect-[16/9] overflow-hidden rounded-2xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={mainImageUrl || coverImageUrl(post.slug.current)}
-              alt={post.mainImage?.alt || post.title}
-              className="h-full w-full object-cover"
-            />
+            {mainImageUrl ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={mainImageUrl}
+                alt={post.mainImage?.alt || post.title}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <BlogCover
+                title={post.title}
+                slug={post.slug.current}
+                category={post.categories?.filter(Boolean)[0]}
+                showTitle={false}
+              />
+            )}
           </div>
         </div>
 
