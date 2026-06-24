@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { features, type SiteFeature } from "@/data/site";
+import { IbPortalMockup, RebateMockup } from "@/components/site/FeatureMockups";
 
 export function Features({ compact = false }: { compact?: boolean }) {
   const rows = compact ? features.slice(0, 4) : features;
@@ -47,31 +48,69 @@ function FeatureRow({ feature, index, reversed }: { feature: SiteFeature; index:
 }
 
 function FeatureVisual({ feature }: { feature: SiteFeature }) {
+  // Styled, on-brand mockups for features that have no real screenshot.
+  if (feature.mockup) {
+    return (
+      <div className="aspect-[4/3]">
+        {feature.mockup === "ib-portal" ? <IbPortalMockup /> : <RebateMockup />}
+      </div>
+    );
+  }
+
+  // Real product screenshots, framed in glass.
+  if (feature.image) {
+    const contain = feature.imageFit === "contain";
+    return (
+      <div className="glass-panel relative aspect-[4/3] overflow-hidden rounded-2xl">
+        <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
+        <div
+          className="absolute inset-0 opacity-50"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, hsl(var(--primary)/0.07) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--primary)/0.07) 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        <div className={`absolute inset-0 ${contain ? "grid place-items-center p-6 sm:p-8" : ""}`}>
+          <Image
+            src={feature.image}
+            alt={feature.alt ?? `${feature.title} preview`}
+            width={feature.imageWidth ?? 900}
+            height={feature.imageHeight ?? 650}
+            sizes="(min-width: 1024px) 42vw, 100vw"
+            className={
+              contain
+                ? "max-h-full w-auto rounded-xl border border-border object-contain shadow-xl"
+                : "h-full w-full rounded-2xl object-cover object-left-top opacity-95"
+            }
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // Abstract fallback (no asset available).
   const Icon = feature.icon;
   return (
     <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-card">
       <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
-      {feature.image ? (
-        <Image src={feature.image} alt={`${feature.title} mockup`} width={900} height={650} className="h-full w-full object-cover object-left-top opacity-95" />
-      ) : (
-        <div className="absolute inset-0 grid place-items-center p-8">
-          <div className="w-full max-w-md rounded-2xl border border-border bg-background/70 p-5 shadow-2xl backdrop-blur-xl">
-            <div className="mb-4 flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-primary" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{feature.visualLabel}</span>
+      <div className="absolute inset-0 grid place-items-center p-8">
+        <div className="w-full max-w-md rounded-2xl border border-border bg-background/70 p-5 shadow-2xl backdrop-blur-xl">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{feature.visualLabel}</span>
+          </div>
+          <div className="grid gap-3">
+            <div className="h-20 rounded-xl border border-primary/20 bg-primary/10" />
+            <div className="grid grid-cols-3 gap-3">
+              <div className="h-16 rounded-xl bg-muted" />
+              <div className="h-16 rounded-xl bg-muted" />
+              <div className="h-16 rounded-xl bg-primary/20" />
             </div>
-            <div className="grid gap-3">
-              <div className="h-20 rounded-xl border border-primary/20 bg-primary/10" />
-              <div className="grid grid-cols-3 gap-3">
-                <div className="h-16 rounded-xl bg-muted" />
-                <div className="h-16 rounded-xl bg-muted" />
-                <div className="h-16 rounded-xl bg-primary/20" />
-              </div>
-              <div className="h-24 rounded-xl border border-border bg-muted/60" />
-            </div>
+            <div className="h-24 rounded-xl border border-border bg-muted/60" />
           </div>
         </div>
-      )}
+      </div>
       <Icon className="absolute bottom-6 right-6 h-20 w-20 text-primary/70 drop-shadow-[0_0_30px_hsl(var(--primary)/0.5)]" strokeWidth={1.1} />
       <div className="absolute inset-0 opacity-[0.45]" style={{ backgroundImage: "linear-gradient(to right, hsl(var(--primary)/0.08) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--primary)/0.08) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
     </div>
