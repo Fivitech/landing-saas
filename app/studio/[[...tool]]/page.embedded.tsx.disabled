@@ -1,0 +1,14 @@
+"use client";
+
+import { NextStudio } from "next-sanity/studio";
+import config from "../../../sanity.config";
+
+// Embedded Sanity Studio. Catch-all route so /studio and its sub-tools all
+// render here. Renders the same root sanity.config that the runtime read client
+// is parameterized from, so Studio and the site never point at different
+// projects.
+export const dynamic = "force-static";
+
+export default function StudioPage() {
+  return <NextStudio config={config} />;
+}
