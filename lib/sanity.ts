@@ -17,7 +17,8 @@ export function isSanityConfigured(): boolean {
 export const client = createClient({
   projectId: projectId || "placeholder",
   dataset,
-  useCdn: true, // public read path; switch to write client for mutations
+  useCdn: false, // false for SSG correctness (CDN can serve stale/partial data during static export); reads still go through the public client
+
   apiVersion,
 });
 

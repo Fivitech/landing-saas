@@ -52,7 +52,7 @@ export default async function BlogPage() {
     date: formatDate(p.publishedAt),
     likes: p.likes ?? 0,
     views: p.views ?? 0,
-    categories: (p.categories || []).map((c) => ({ title: c.title, color: c.color })),
+    categories: (p.categories || []).filter(Boolean).map((c) => ({ title: c.title, color: c.color })),
     imageUrl: p.mainImage?.asset ? urlFor(p.mainImage).width(1200).url() : null,
   }));
 

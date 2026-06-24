@@ -125,7 +125,7 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const reading = calculateReadingTime(post.body);
-  const categoryRefs = (post.categories || []).map((c) => c._id);
+  const categoryRefs = (post.categories || []).filter(Boolean).map((c) => c._id);
   const related = await getRelatedPosts(post._id, categoryRefs);
 
   const ogImage = post.seo?.openGraphImage?.asset
@@ -176,7 +176,7 @@ export default async function BlogPostPage({
 
           {post.categories && post.categories.length > 0 && (
             <div className="mb-6 flex flex-wrap justify-center gap-2">
-              {post.categories.map((c) => {
+              {post.categories.filter(Boolean).map((c) => {
                 const color = c.color || "#00E676";
                 return (
                   <span
@@ -274,7 +274,7 @@ export default async function BlogPostPage({
               More from the team.
             </h2>
             <div className="grid gap-6 md:grid-cols-3">
-              {related.map((p) => (
+              {related.filter(Boolean).map((p) => (
                 <RelatedCard key={p._id} p={p} />
               ))}
             </div>
