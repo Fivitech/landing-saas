@@ -25,3 +25,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local tooling / agent artifacts (never commit)
+.omc/
+.playwright-mcp/
+.sisyphus/
+codedb.snapshot

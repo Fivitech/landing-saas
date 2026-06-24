@@ -1,105 +1,37 @@
+import type { Metadata } from "next";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
-import { ContactHeader } from "@/components/contact/ContactHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { Mail, Phone, MapPin } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SiteShell } from "@/components/site/SiteShell";
+import { contactDetails } from "@/data/site";
+
+export const metadata: Metadata = {
+  title: "Request a Forex CRM Demo | Fivitech FXCRM",
+  description: "Request a Fivitech FXCRM demo for your forex brokerage and see the CRM, client area, IB portal, KYC, payments, and MT5 workflows.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function ContactPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 to-slate-100">
+    <SiteShell>
       <Navigation />
-      <main className="flex-1">
-        <ContactHeader />
-        
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
-              <div>
-                <ContactForm />
-              </div>
-              <div className="flex flex-col gap-8">
-                <div>
-                  <h2 className="text-2xl font-bold tracking-tighter mb-4">Contact Information</h2>
-                  <p className="text-muted-foreground mb-6">
-                    Our team is here to help you with any questions you may have about our platform, pricing, or how we
-                    can tailor our solution to your specific needs.
-                  </p>
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="rounded-full bg-primary/10 p-2">
-                        <Mail className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium">Email</h3>
-                        <p className="text-sm text-muted-foreground">contact@fivitechnologies.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="rounded-full bg-primary/10 p-2">
-                        <Phone className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium">Phone</h3>
-                        <p className="text-sm text-muted-foreground">+971 56 881 9915</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="rounded-full bg-primary/10 p-2">
-                        <MapPin className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium">Headquarters</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Office: 1F 2696, Building: C1
-                          <br />
-                          Fivitech Office, Ajman Free Zone
-                          <br />
-                          United Arab Emirates
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Connect With Us</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-6">
-                      <div className="flex flex-col gap-4">
-                        <h3 className="font-medium">Social Media</h3>
-                        <div className="flex gap-4">
-                          <a href="https://www.facebook.com/fivitechnologies" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-                              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                            </svg>
-                          </a>
-                          <a href="https://www.instagram.com/fivitechnologies" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-                              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                            </svg>
-                          </a>
-                          <a href="https://www.linkedin.com/company/fivitechnologies/" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-                              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                              <rect width="4" height="12" x="2" y="9" />
-                              <circle cx="4" cy="4" r="2" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+      <main className="flex-1 px-4 pb-24 pt-36 sm:px-6 lg:pt-44">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-primary">Contact</p>
+            <h1 className="mt-4 text-[clamp(2.5rem,5vw,4.75rem)] font-extrabold leading-tight tracking-tight">See your brokerage workflow on Fivitech.</h1>
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">Send the six required details and our team will walk you through the CRM, client portal, IB, KYC, payment, and trading workflows.</p>
+            <div className="mt-10 grid gap-5 text-sm text-muted-foreground">
+              <a href={`mailto:${contactDetails.email}`} className="glass-panel flex items-center gap-4 rounded-2xl p-4 transition hover:text-foreground"><Mail className="h-5 w-5 text-primary" /> {contactDetails.email}</a>
+              <a href={`tel:${contactDetails.tel}`} className="glass-panel flex items-center gap-4 rounded-2xl p-4 transition hover:text-foreground"><Phone className="h-5 w-5 text-primary" /> {contactDetails.phone}</a>
+              <div className="glass-panel flex items-start gap-4 rounded-2xl p-4"><MapPin className="mt-0.5 h-5 w-5 text-primary" /> {contactDetails.address}</div>
             </div>
           </div>
-        </section>
+          <ContactForm />
+        </div>
       </main>
       <Footer />
-    </div>
+    </SiteShell>
   );
 }

@@ -68,7 +68,7 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)"],
+        sans: ["var(--font-sans)"],
       },
       container: {
         center: true,
@@ -111,6 +111,22 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" }
         },
+        "mesh-drift": {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
+          "50%": { transform: "translate3d(24px, -18px, 0) scale(1.04)" }
+        },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" }
+        },
+        "fade-in-up": {
+          from: { opacity: "0", transform: "translateY(24px)" },
+          to: { opacity: "1", transform: "translateY(0)" }
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -119,6 +135,10 @@ const config: Config = {
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
         "grow": "grow 2s ease-out forwards",
         "count": "count 1s ease-out forwards",
+        "mesh-drift": "mesh-drift 14s ease-in-out infinite",
+        marquee: "marquee 28s linear infinite",
+        "fade-in-up": "fade-in-up 0.7s ease-out both",
+        shimmer: "shimmer 2.4s linear infinite",
       },
     },
   },

@@ -1,157 +1,93 @@
 "use client";
 
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2 } from "lucide-react";
 import { countries } from "@/data/countries";
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+  companyEmail: string;
+  companyName: string;
+  mobile: string;
+  country: string;
+  website: string;
+};
+
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
+const initialFormData: FormData = {
+  firstName: "",
+  lastName: "",
+  companyEmail: "",
+  companyName: "",
+  mobile: "",
+  country: "",
+  website: "",
+};
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{2,5}[-\s.]?[0-9]{2,6}[-\s.]?[0-9]{2,9}$/;
+
+function validate(data: FormData) {
+  const errors: FormErrors = {};
+
+  if (!data.firstName.trim()) errors.firstName = "First name is required";
+  if (!data.lastName.trim()) errors.lastName = "Last name is required";
+  if (!data.companyEmail.trim()) errors.companyEmail = "Company email is required";
+  else if (!emailRegex.test(data.companyEmail)) errors.companyEmail = "Enter a valid company email";
+  if (!data.companyName.trim()) errors.companyName = "Company name is required";
+  if (!data.mobile.trim()) errors.mobile = "Mobile number is required";
+  else if (!phoneRegex.test(data.mobile)) errors.mobile = "Enter a valid mobile number";
+  if (!data.country) errors.country = "Country is required";
+
+  return errors;
+}
 
 export function ContactForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    country: "",
-    interest: "",
-    message: ""
-  });
-  const [errors, setErrors] = useState({
-    email: "",
-    phone: ""
-  });
+  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  // Email validation regex
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-  // Phone validation regex (international format)
-  const phoneRegex = /^[\+]?[(]?[0-9]{1,3}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}$/;
-
-  const validateEmail = (email: string) => {
-    if (!email) {
-      return "Email is required";
-    }
-    if (!emailRegex.test(email)) {
-      return "Please enter a valid email address";
-    }
-    return "";
+  const setField = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
-  const validatePhone = (phone: string) => {
-    if (!phone) {
-      return "Phone number is required";
-    }
-    if (!phoneRegex.test(phone)) {
-      return "Please enter a valid phone number";
-    }
-    return "";
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    
-    // Update form data without validation on every keystroke
-    setFormData(prev => ({
-      ...prev,
-      [id]: value
-    }));
-
-    // Clear errors when user starts typing
-    if (id === 'email' && errors.email) {
-      setErrors(prev => ({ ...prev, email: "" }));
-    }
-    if (id === 'phone' && errors.phone) {
-      setErrors(prev => ({ ...prev, phone: "" }));
-    }
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    
-    // Validate on blur
-    if (id === 'email') {
-      const emailError = validateEmail(value);
-      setErrors(prev => ({ ...prev, email: emailError }));
-    }
-    if (id === 'phone') {
-      const phoneError = validatePhone(value);
-      setErrors(prev => ({ ...prev, phone: phoneError }));
-    }
-  };
-
-  const handleSelectChange = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate all fields before submission
-    const emailError = validateEmail(formData.email);
-    const phoneError = validatePhone(formData.phone);
-    
-    if (emailError || phoneError) {
-      setErrors({
-        email: emailError,
-        phone: phoneError
-      });
-      return;
-    }
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const nextErrors = validate(formData);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
 
     setIsSubmitting(true);
-
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: `Phone: ${formData.phone}\nCompany: ${formData.company || 'Not provided'}\nCountry: ${formData.country}\nInterest: ${formData.interest || 'Not specified'}\n\nMessage: ${formData.message || 'No additional message'}`
-        }),
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Failed to send request");
 
-      const data = await response.json();
-
-      if (response.ok) {
-        toast({
-          title: "Message Sent Successfully!",
-          description: "Thank you for contacting us. Someone from our team will reach out to you shortly.",
-        });
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          company: "",
-          country: "",
-          interest: "",
-          message: ""
-        });
-        setErrors({
-          email: "",
-          phone: ""
-        });
-      } else {
-        throw new Error(data.error || "Something went wrong");
-      }
+      toast({
+        title: "Demo request sent",
+        description: "Thanks. The Fivitech team will contact you shortly.",
+      });
+      setFormData(initialFormData);
+      setErrors({});
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send message. Please try again.",
+        title: "Could not send request",
+        description: error instanceof Error ? error.message : "Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -159,83 +95,41 @@ export function ContactForm() {
   };
 
   return (
-    <Card>
+    <Card className="glass-panel rounded-3xl">
       <CardHeader>
-        <CardTitle>Send Us a Message</CardTitle>
-        <CardDescription>
-          Fill out the form below and our team will get back to you as soon as possible.
-        </CardDescription>
+        <CardTitle>Request a live demo</CardTitle>
+        <CardDescription>Six quick details. No long message box, no sales maze.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-2">
-            <Label htmlFor="name">
-              Name <span className="text-red-500">*</span>
-            </Label>
-            <Input 
-              id="name" 
-              placeholder="Enter your full name" 
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+        <form className="space-y-5" onSubmit={handleSubmit} noValidate>
+          <input
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+            id="website"
+            name="website"
+            value={formData.website}
+            onChange={(event) => setField("website", event.target.value)}
+          />
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Field label="First name" id="firstName" error={errors.firstName}>
+              <Input id="firstName" value={formData.firstName} onChange={(event) => setField("firstName", event.target.value)} autoComplete="given-name" />
+            </Field>
+            <Field label="Last name" id="lastName" error={errors.lastName}>
+              <Input id="lastName" value={formData.lastName} onChange={(event) => setField("lastName", event.target.value)} autoComplete="family-name" />
+            </Field>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">
-              Email <span className="text-red-500">*</span>
-            </Label>
-            <Input 
-              id="email" 
-              type="email" 
-              placeholder="Enter your email address" 
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required
-              className={errors.email ? "border-red-500" : ""}
-            />
-            {errors.email && (
-              <p className="text-sm text-red-500">{errors.email}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="phone">
-              Contact Number <span className="text-red-500">*</span>
-            </Label>
-            <Input 
-              id="phone" 
-              type="tel" 
-              placeholder="Enter your phone number (e.g., +971 56 881 9915)" 
-              value={formData.phone}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required
-              className={errors.phone ? "border-red-500" : ""}
-            />
-            {errors.phone && (
-              <p className="text-sm text-red-500">{errors.phone}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="company">
-              Company Name <span className="text-muted-foreground text-sm">(optional)</span>
-            </Label>
-            <Input 
-              id="company" 
-              placeholder="Enter your company name" 
-              value={formData.company}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="country">
-              Country <span className="text-red-500">*</span>
-            </Label>
-            <Select 
-              onValueChange={(value) => handleSelectChange('country', value)} 
-              value={formData.country}
-              required
-            >
+          <Field label="Company email" id="companyEmail" error={errors.companyEmail}>
+            <Input id="companyEmail" type="email" value={formData.companyEmail} onChange={(event) => setField("companyEmail", event.target.value)} autoComplete="email" />
+          </Field>
+          <Field label="Company name" id="companyName" error={errors.companyName}>
+            <Input id="companyName" value={formData.companyName} onChange={(event) => setField("companyName", event.target.value)} autoComplete="organization" />
+          </Field>
+          <Field label="Mobile number" id="mobile" error={errors.mobile}>
+            <Input id="mobile" type="tel" value={formData.mobile} onChange={(event) => setField("mobile", event.target.value)} autoComplete="tel" placeholder="+971 56 881 9915" />
+          </Field>
+          <Field label="Country" id="country" error={errors.country}>
+            <Select value={formData.country} onValueChange={(value) => setField("country", value)}>
               <SelectTrigger id="country">
                 <SelectValue placeholder="Select your country" />
               </SelectTrigger>
@@ -247,55 +141,22 @@ export function ContactForm() {
                 ))}
               </SelectContent>
             </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="interest">
-              I'm interested in <span className="text-muted-foreground text-sm">(optional)</span>
-            </Label>
-            <Select 
-              onValueChange={(value) => handleSelectChange('interest', value)} 
-              value={formData.interest}
-            >
-              <SelectTrigger id="interest">
-                <SelectValue placeholder="Select an option" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="starter">Starter Plan</SelectItem>
-                <SelectItem value="professional">Professional Plan</SelectItem>
-                <SelectItem value="enterprise">Enterprise Plan</SelectItem>
-                <SelectItem value="custom">Custom Solution</SelectItem>
-                <SelectItem value="demo">Product Demo</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="message">
-              Message <span className="text-muted-foreground text-sm">(optional)</span>
-            </Label>
-            <Textarea
-              id="message"
-              placeholder="Tell us about your requirements and questions"
-              className="min-h-[120px]"
-              value={formData.message}
-              onChange={handleChange}
-            />
-          </div>
-          <Button 
-            type="submit" 
-            className="w-full rounded-full shadow-lg bg-primary text-white hover:bg-primary/90 hover:shadow-xl"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Sending...
-              </>
-            ) : (
-              "Send Message"
-            )}
+          </Field>
+          <Button type="submit" className="w-full rounded-full bg-primary py-6 text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90" disabled={isSubmitting}>
+            {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...</> : "Request Demo"}
           </Button>
         </form>
       </CardContent>
     </Card>
+  );
+}
+
+function Field({ label, id, error, children }: { label: string; id: string; error?: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor={id}>{label} <span className="text-primary">*</span></Label>
+      {children}
+      {error && <p className="text-sm text-destructive">{error}</p>}
+    </div>
   );
 }

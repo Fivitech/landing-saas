@@ -1,16 +1,24 @@
+import type { Metadata } from "next";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
+import { SiteShell } from "@/components/site/SiteShell";
+
+export const metadata: Metadata = {
+  title: "Terms of Service | Fivitech FXCRM",
+  description: "Terms of service for Fivitech FXCRM forex brokerage platform services.",
+  alternates: { canonical: "/terms-of-service" },
+};
 
 export default function TermsOfServicePage() {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 to-slate-100">
+    <SiteShell>
       <Navigation />
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container max-w-4xl">
+        <section className="w-full px-4 pb-24 pt-36 sm:px-6 lg:pt-44">
+          <div className="glass-panel container max-w-4xl rounded-3xl p-6 md:p-10">
             <h1 className="text-4xl font-bold tracking-tighter mb-8">Terms of Service</h1>
             <div className="prose prose-gray max-w-none">
-              <p className="text-muted-foreground mb-6">Last updated: {new Date().toLocaleDateString()}</p>
+              <p className="text-muted-foreground mb-6">Last updated: June 24, 2026</p>
               
               <h2 className="text-2xl font-semibold mt-8 mb-4">1. Acceptance of Terms</h2>
               <p>By accessing and using Fivi Technologies' forex trading platform services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
@@ -97,6 +105,6 @@ export default function TermsOfServicePage() {
         </section>
       </main>
       <Footer />
-    </div>
+    </SiteShell>
   );
 }

@@ -1,16 +1,24 @@
+import type { Metadata } from "next";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
+import { SiteShell } from "@/components/site/SiteShell";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | Fivitech FXCRM",
+  description: "Privacy policy for Fivitech FXCRM forex brokerage platform services.",
+  alternates: { canonical: "/privacy-policy" },
+};
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 to-slate-100">
+    <SiteShell>
       <Navigation />
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container max-w-4xl">
+        <section className="w-full px-4 pb-24 pt-36 sm:px-6 lg:pt-44">
+          <div className="glass-panel container max-w-4xl rounded-3xl p-6 md:p-10">
             <h1 className="text-4xl font-bold tracking-tighter mb-8">Privacy Policy</h1>
             <div className="prose prose-gray max-w-none">
-              <p className="text-muted-foreground mb-6">Last updated: {new Date().toLocaleDateString()}</p>
+              <p className="text-muted-foreground mb-6">Last updated: June 24, 2026</p>
               
               <h2 className="text-2xl font-semibold mt-8 mb-4">1. Introduction</h2>
               <p>Fivi Technologies ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you use our forex trading platform services.</p>
@@ -88,6 +96,6 @@ export default function PrivacyPolicyPage() {
         </section>
       </main>
       <Footer />
-    </div>
+    </SiteShell>
   );
 }
