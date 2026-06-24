@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { Activity, ArrowRight, TrendingUp } from "lucide-react";
+import { CrmDashboardMockup } from "@/components/site/CrmDashboardMockup";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -58,8 +58,8 @@ function HeroMockup() {
           <span className="h-2.5 w-2.5 rounded-full bg-primary/80" />
           <span className="ml-3 text-[11px] font-medium text-muted-foreground">fivitech · brokerage dashboard</span>
         </div>
-        <div className="overflow-hidden rounded-xl border border-border bg-background">
-          <Image src="/accounts.png" alt="Fivitech CRM dashboard preview" width={1000} height={600} priority className="h-auto w-full" />
+        <div className="aspect-[5/3] overflow-hidden rounded-xl border border-border bg-background">
+          <CrmDashboardMockup />
         </div>
       </div>
       <div className="absolute -bottom-5 -left-6 rotate-[3deg] rounded-xl border border-border bg-card/85 px-4 py-2.5 shadow-xl backdrop-blur-xl">

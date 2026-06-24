@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Check, FileText, IdCard, ScanFace, ShieldCheck, UploadCloud } from "lucide-react";
 
 /**
@@ -22,6 +22,7 @@ const steps = [
 ] as const;
 
 export function KycMockup() {
+  const reduce = useReducedMotion();
   return (
     <div className="glass-panel relative h-full w-full overflow-hidden rounded-2xl">
       <div className="absolute inset-0 opacity-60" style={panelGrid} />
@@ -40,10 +41,14 @@ export function KycMockup() {
               <p className="text-sm font-semibold">Client onboarding</p>
             </div>
           </div>
-          <span className="flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary shadow-[var(--shadow-glow)]">
+          <motion.span
+            className="flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary shadow-[var(--shadow-glow)]"
+            animate={reduce ? undefined : { opacity: [1, 0.65, 1] }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          >
             <Check className="h-3 w-3" strokeWidth={3} />
             Verified
-          </span>
+          </motion.span>
         </div>
 
         {/* Document upload drop-zone */}
@@ -56,10 +61,18 @@ export function KycMockup() {
               <p className="truncate text-sm font-semibold">passport-scan.pdf</p>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted">
                 <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{ width: reduce ? "100%" : "0%" }}
+                  animate={
+                    reduce
+                      ? undefined
+                      : { width: ["0%", "100%", "100%", "0%"] }
+                  }
+                  transition={{
+                    duration: 5,
+                    times: [0, 0.4, 0.85, 1],
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                   className="h-full rounded-full bg-primary"
                 />
               </div>
@@ -88,9 +101,19 @@ export function KycMockup() {
                   <p className="truncate text-sm font-semibold">{step.label}</p>
                   <p className="text-[11px] text-muted-foreground">{step.note}</p>
                 </div>
-                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-primary/40 bg-primary/15 text-primary">
+                <motion.span
+                  className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-primary/40 bg-primary/15 text-primary"
+                  animate={reduce ? undefined : { scale: [1, 1.18, 1] }}
+                  transition={{
+                    duration: 1.6,
+                    repeat: Infinity,
+                    repeatDelay: 2.4,
+                    delay: 0.4 * i,
+                    ease: "easeInOut",
+                  }}
+                >
                   <Check className="h-3.5 w-3.5" strokeWidth={3} />
-                </span>
+                </motion.span>
               </motion.div>
             );
           })}

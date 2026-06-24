@@ -1,6 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  animate,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "framer-motion";
 import { Network, Repeat2 } from "lucide-react";
 
 /**
@@ -15,8 +21,36 @@ const panelGrid = {
   backgroundSize: "32px 32px",
 } as const;
 
+/** Counts up to a dollar value once in view (respects reduced motion). */
+function CountUpMoney({ value, className }: { value: number; className?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduce = useReducedMotion();
+  const [display, setDisplay] = useState(reduce ? value : 0);
+
+  useEffect(() => {
+    if (!inView || reduce) {
+      setDisplay(value);
+      return;
+    }
+    const controls = animate(0, value, {
+      duration: 1.4,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setDisplay(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [inView, value, reduce]);
+
+  return (
+    <span ref={ref} className={className}>
+      ${display.toLocaleString("en-US")}
+    </span>
+  );
+}
+
 /** Multi-level referral tree + tiered-commission illustration. */
 export function IbPortalMockup() {
+  const reduce = useReducedMotion();
   return (
     <div className="glass-panel relative h-full w-full overflow-hidden rounded-2xl">
       <div className="absolute inset-0 opacity-60" style={panelGrid} />
@@ -50,20 +84,33 @@ export function IbPortalMockup() {
             preserveAspectRatio="none"
             aria-hidden
           >
-            <path d="M160 28 L80 84" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M160 28 L160 84" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M160 28 L240 84" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M80 108 L48 162" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M80 108 L112 162" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M240 108 L240 162" stroke="currentColor" strokeWidth="1.5" />
+            {[
+              "M160 28 L80 84",
+              "M160 28 L160 84",
+              "M160 28 L240 84",
+              "M80 108 L48 162",
+              "M80 108 L112 162",
+              "M240 108 L240 162",
+            ].map((d, i) => (
+              <motion.path
+                key={d}
+                d={d}
+                stroke="currentColor"
+                strokeWidth="1.5"
+                initial={{ pathLength: reduce ? 1 : 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.12 * i, ease: "easeInOut" }}
+              />
+            ))}
           </svg>
 
           {/* root */}
-          <Node className="left-1/2 top-2 -translate-x-1/2" label="Master IB" accent />
+          <Node className="left-1/2 top-2 -translate-x-1/2" label="Master IB" accent pulse={!reduce} pulseDelay={0} />
           {/* tier 2 */}
-          <Node className="left-[14%] top-[40%]" label="Sub-IB" />
-          <Node className="left-1/2 top-[40%] -translate-x-1/2" label="Sub-IB" />
-          <Node className="right-[14%] top-[40%]" label="Sub-IB" />
+          <Node className="left-[14%] top-[40%]" label="Sub-IB" pulse={!reduce} pulseDelay={0.5} />
+          <Node className="left-1/2 top-[40%] -translate-x-1/2" label="Sub-IB" pulse={!reduce} pulseDelay={0.8} />
+          <Node className="right-[14%] top-[40%]" label="Sub-IB" pulse={!reduce} pulseDelay={1.1} />
           {/* tier 3 leaves */}
           <Leaf className="left-[6%] bottom-1" />
           <Leaf className="left-[30%] bottom-1" />
@@ -103,25 +150,35 @@ function Node({
   className,
   label,
   accent = false,
+  pulse = false,
+  pulseDelay = 0,
 }: {
   className: string;
   label: string;
   accent?: boolean;
+  pulse?: boolean;
+  pulseDelay?: number;
 }) {
   return (
     <div className={`absolute ${className}`}>
-      <div
+      <motion.div
         className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[11px] font-semibold shadow-sm ${
           accent
             ? "border-primary/40 bg-primary/15 text-primary"
             : "border-border bg-card/80 text-foreground"
         }`}
+        animate={
+          pulse
+            ? { boxShadow: ["0 0 0 0 hsl(var(--primary)/0)", "0 0 0 4px hsl(var(--primary)/0.18)", "0 0 0 0 hsl(var(--primary)/0)"] }
+            : undefined
+        }
+        transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.4, delay: pulseDelay, ease: "easeInOut" }}
       >
         <span
           className={`h-1.5 w-1.5 rounded-full ${accent ? "bg-primary" : "bg-primary/50"}`}
         />
         {label}
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -138,6 +195,7 @@ function Leaf({ className }: { className: string }) {
 
 /** Rebate / commission payout summary illustration. */
 export function RebateMockup() {
+  const reduce = useReducedMotion();
   const rows = [
     { ib: "Apex Partners", lots: "1,284", rate: "$9.00", payout: "$11,556" },
     { ib: "Northwind IB", lots: "842", rate: "$7.50", payout: "$6,315" },
@@ -173,7 +231,10 @@ export function RebateMockup() {
           <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
             Total rebates payable
           </p>
-          <p className="mt-1 text-2xl font-black tracking-tight">$22,821</p>
+          <CountUpMoney
+            value={22821}
+            className="mt-1 block text-2xl font-black tracking-tight tabular-nums"
+          />
         </div>
 
         {/* table */}
@@ -194,7 +255,17 @@ export function RebateMockup() {
               className="grid grid-cols-[1.4fr_0.7fr_0.7fr_0.9fr] items-center gap-2 border-b border-border/60 px-3 py-2.5 text-xs last:border-b-0"
             >
               <span className="flex items-center gap-2 font-medium">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                <motion.span
+                  className="h-1.5 w-1.5 rounded-full bg-primary"
+                  animate={reduce ? undefined : { scale: [1, 1.9, 1], opacity: [0.7, 1, 0.7] }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    repeatDelay: rows.length * 0.55,
+                    delay: 0.55 * i,
+                    ease: "easeInOut",
+                  }}
+                />
                 <span className="truncate">{r.ib}</span>
               </span>
               <span className="text-right tabular-nums text-muted-foreground">{r.lots}</span>

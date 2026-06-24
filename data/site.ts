@@ -24,7 +24,7 @@ export const stats = [
   { value: "30+", label: "Countries served" },
 ];
 
-export type FeatureMockup = "ib-portal" | "rebate" | "kyc" | "payments";
+export type FeatureMockup = "ib-portal" | "rebate" | "kyc" | "payments" | "crm";
 
 export type SiteFeature = {
   icon: LucideIcon;
@@ -50,10 +50,7 @@ export const features: SiteFeature[] = [
     title: "Backoffice CRM",
     body: "Run leads, retention, onboarding, support, and trading-account operations from one command center built for forex teams.",
     bullets: ["Lead pipeline", "Role access", "Audit trail"],
-    image: "/screens/crm-backoffice.webp",
-    alt: "Fivitech backoffice CRM accounts dashboard",
-    imageWidth: 1500,
-    imageHeight: 560,
+    mockup: "crm",
     visualLabel: "CRM dashboard",
   },
   {

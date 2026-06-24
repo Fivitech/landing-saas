@@ -3,7 +3,12 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Calendar, Heart, Eye, Search, X, SearchX, ArrowRight } from "lucide-react";
-import { BlogCover } from "@/components/blog/BlogCover";
+
+// Build-time generated per-post cover PNG (also the post's OG image). Used as the
+// card/hero thumbnail whenever a post has no real mainImage.
+function coverImageUrl(slug: string): string {
+  return `/blog/${slug}/opengraph-image`;
+}
 
 export type BlogCard = {
   id: string;
@@ -44,16 +49,13 @@ function PostCard({ post, index }: { post: BlogCard; index: number }) {
     <article className="group glass-panel relative overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1">
       <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" aria-label={post.title} />
       <div className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${gradient}`}>
-        {post.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={post.imageUrl} alt={post.title} className="h-full w-full object-cover" loading="lazy" />
-        ) : (
-          <BlogCover
-            title={post.title}
-            slug={post.slug}
-            categoryColor={post.categories[0]?.color}
-          />
-        )}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={post.imageUrl || coverImageUrl(post.slug)}
+          alt={post.title}
+          className="h-full w-full object-cover"
+          loading="lazy"
+        />
         <div className="absolute left-4 top-4 z-10 flex flex-wrap gap-2">
           {post.categories.map((c) => (
             <CategoryPill key={c.title} c={c} />
@@ -89,17 +91,12 @@ function FeaturedPost({ post }: { post: BlogCard }) {
     <div className="glass-panel relative mb-16 grid gap-0 overflow-hidden rounded-3xl md:grid-cols-2">
       <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" aria-label="Featured article" />
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-primary/30 via-[hsl(var(--cyan-accent))]/25 to-[hsl(var(--violet-accent))]/20 md:aspect-auto md:min-h-[420px]">
-        {post.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={post.imageUrl} alt={post.title} className="h-full w-full object-cover" />
-        ) : (
-          <BlogCover
-            title={post.title}
-            slug={post.slug}
-            categoryColor={post.categories[0]?.color}
-            showTitle={false}
-          />
-        )}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={post.imageUrl || coverImageUrl(post.slug)}
+          alt={post.title}
+          className="h-full w-full object-cover"
+        />
         <div className="absolute bottom-8 left-8 z-10 text-xs uppercase tracking-[0.4em] text-foreground/40">
           Featured
         </div>

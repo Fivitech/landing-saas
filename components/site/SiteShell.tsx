@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary/30">
+    <div className="relative min-h-screen overflow-x-hidden text-foreground selection:bg-primary/30">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         {/* Primary multi-color gradient mesh (green + cyan + violet), slow drift */}
         <div

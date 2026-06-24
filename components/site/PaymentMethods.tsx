@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Banknote, Bitcoin, Smartphone, Wallet } from "lucide-react";
 
 /**
@@ -60,6 +60,7 @@ const methods: Method[] = [
 ];
 
 export function PaymentMethods() {
+  const reduce = useReducedMotion();
   return (
     <div className="glass-panel relative h-full w-full overflow-hidden rounded-2xl">
       <div className="absolute inset-0 opacity-60" style={panelGrid} />
@@ -94,9 +95,29 @@ export function PaymentMethods() {
               transition={{ duration: 0.4, delay: 0.05 * i }}
               className="flex items-center gap-3 rounded-xl border border-border bg-card/60 px-3 py-2.5"
             >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-border bg-muted/60">
+              <motion.span
+                className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-border bg-muted/60"
+                animate={
+                  reduce
+                    ? undefined
+                    : {
+                        borderColor: [
+                          "hsl(var(--border))",
+                          "hsl(var(--primary)/0.5)",
+                          "hsl(var(--border))",
+                        ],
+                      }
+                }
+                transition={{
+                  duration: 1.6,
+                  repeat: Infinity,
+                  repeatDelay: methods.length * 0.5,
+                  delay: 0.5 * i,
+                  ease: "easeInOut",
+                }}
+              >
                 {m.mark}
-              </span>
+              </motion.span>
               <div className="min-w-0 leading-tight">
                 <p className="truncate text-sm font-semibold">{m.label}</p>
                 <p className="truncate text-[11px] text-muted-foreground">{m.sub}</p>
@@ -110,7 +131,11 @@ export function PaymentMethods() {
           <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
             Auto-reconciled to wallet ledger
           </p>
-          <span className="h-2 w-2 rounded-full bg-primary shadow-[var(--shadow-glow)]" />
+          <motion.span
+            className="h-2 w-2 rounded-full bg-primary shadow-[var(--shadow-glow)]"
+            animate={reduce ? undefined : { opacity: [1, 0.3, 1], scale: [1, 0.85, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
         </div>
       </div>
     </div>

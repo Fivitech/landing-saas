@@ -20,12 +20,12 @@ export function SiteHeader() {
       <div className="glass-panel mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-5 py-3">
         <Link href="/" className="flex items-center gap-2.5" aria-label="Fivitech FXCRM home">
           <Image
-            src="/fivitech-mark.webp"
+            src="/fivitechLogo.png"
             alt="Fivitech"
             width={36}
             height={36}
             priority
-            className="h-9 w-9 drop-shadow-[0_0_14px_hsl(var(--primary)/0.35)]"
+            className="h-9 w-9 rounded-lg object-contain"
           />
           <span className="text-[17px] font-bold tracking-tight">Fivitech</span>
         </Link>
