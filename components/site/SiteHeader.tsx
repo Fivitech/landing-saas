@@ -19,13 +19,23 @@ export function SiteHeader() {
     >
       <div className="glass-panel mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-5 py-3">
         <Link href="/" className="flex items-center gap-2.5" aria-label="Fivitech FXCRM home">
+          {/* Dark-mode logo (white wordmark) and light-mode logo (dark wordmark),
+              swapped purely by the `.dark` class so there's no theme-flash. */}
           <Image
             src="/fivitechLogo-trimmed.png"
             alt="Fivitech"
             width={572}
             height={401}
             priority
-            className="h-11 w-auto object-contain"
+            className="hidden h-11 w-auto object-contain dark:block"
+          />
+          <Image
+            src="/fivitechLogo-trimmed-light.png"
+            alt="Fivitech"
+            width={572}
+            height={401}
+            priority
+            className="h-11 w-auto object-contain dark:hidden"
           />
         </Link>
 

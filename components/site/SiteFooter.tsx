@@ -13,7 +13,14 @@ export function SiteFooter() {
               alt="Fivitech"
               width={572}
               height={401}
-              className="h-8 w-auto object-contain"
+              className="hidden h-8 w-auto object-contain dark:block"
+            />
+            <Image
+              src="/fivitechLogo-trimmed-light.png"
+              alt="Fivitech"
+              width={572}
+              height={401}
+              className="h-8 w-auto object-contain dark:hidden"
             />
             <span className="text-sm font-bold">Fivitech FXCRM</span>
           </Link>
