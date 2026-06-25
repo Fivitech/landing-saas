@@ -3,6 +3,7 @@ import { Sora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { MetaPixel } from "@/components/analytics/MetaPixel";
 import { cn } from "@/lib/utils";
 
 const sora = Sora({
@@ -55,6 +56,7 @@ export default function RootLayout({
         "min-h-screen bg-background font-sans antialiased",
         sora.variable
       )}>
+        <MetaPixel />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
