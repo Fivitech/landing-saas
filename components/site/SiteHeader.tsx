@@ -22,10 +22,10 @@ export function SiteHeader() {
           <Image
             src="/fivitechLogo.png"
             alt="Fivitech"
-            width={56}
-            height={56}
+            width={112}
+            height={112}
             priority
-            className="h-12 w-12 rounded-lg object-contain"
+            className="h-24 w-24 rounded-lg object-contain"
           />
         </Link>
 
