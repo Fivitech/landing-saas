@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CalendarClock, Loader2, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { PhoneField } from "@/components/contact/PhoneField";
+import { defaultDialCode, type DialCode } from "@/data/dialCodes";
+import { detectDefaultDialCode } from "@/lib/geo";
 
 const valueProps = [
   { icon: Zap, title: "Live in days", body: "White-label the full brokerage stack under your own brand." },
@@ -17,17 +20,23 @@ export function HomeContact() {
   const { toast } = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
+  const [mobile, setMobile] = useState("");
   const [website, setWebsite] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [dialCode, setDialCode] = useState<DialCode>(defaultDialCode);
+
+  // Auto-select the dial code from the visitor's timezone after mount.
+  useEffect(() => {
+    setDialCode(detectDefaultDialCode());
+  }, []);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!name.trim() || !company.trim()) {
-      toast({ variant: "destructive", title: "Add your name and company", description: "Both help us tailor the demo." });
+    if (!name.trim() || !mobile.trim()) {
+      toast({ variant: "destructive", title: "Add your name and mobile number", description: "Both help us reach you for the demo." });
       return;
     }
     if (!emailRegex.test(email)) {
@@ -47,8 +56,8 @@ export function HomeContact() {
           firstName,
           lastName,
           companyEmail: email.trim(),
-          companyName: company.trim(),
-          mobile: "Requested via home quick form",
+          companyName: "Home page quick form",
+          mobile: `${dialCode.dialCode} ${mobile.trim()}`,
           country: "Not provided",
           website,
         }),
@@ -59,7 +68,7 @@ export function HomeContact() {
       toast({ title: "Demo request sent", description: "Thanks. The Fivitech team will be in touch shortly." });
       setName("");
       setEmail("");
-      setCompany("");
+      setMobile("");
     } catch (error) {
       toast({
         variant: "destructive",
@@ -135,12 +144,12 @@ export function HomeContact() {
                 autoComplete="email"
                 className="h-12 rounded-xl"
               />
-              <Input
-                aria-label="Company name"
-                placeholder="Company name"
-                value={company}
-                onChange={(event) => setCompany(event.target.value)}
-                autoComplete="organization"
+              <PhoneField
+                dialCode={dialCode}
+                onDialCodeChange={setDialCode}
+                number={mobile}
+                onNumberChange={setMobile}
+                placeholder="Mobile number"
                 className="h-12 rounded-xl"
               />
               <Button
