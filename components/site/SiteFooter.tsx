@@ -9,11 +9,11 @@ export function SiteFooter() {
         <div className="space-y-4">
           <Link href="/" className="flex items-center gap-2.5">
             <Image
-              src="/fivitechLogo.png"
+              src="/fivitechLogo-trimmed.png"
               alt="Fivitech"
-              width={32}
-              height={32}
-              className="h-8 w-8 rounded-md object-contain"
+              width={572}
+              height={401}
+              className="h-8 w-auto object-contain"
             />
             <span className="text-sm font-bold">Fivitech FXCRM</span>
           </Link>
