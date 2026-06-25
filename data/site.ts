@@ -24,7 +24,7 @@ export const stats = [
   { value: "30+", label: "Countries served" },
 ];
 
-export type FeatureMockup = "ib-portal" | "rebate" | "kyc" | "payments" | "crm";
+export type FeatureMockup = "ib-portal" | "rebate" | "kyc" | "payments" | "crm" | "white-label";
 
 export type SiteFeature = {
   icon: LucideIcon;
@@ -101,10 +101,7 @@ export const features: SiteFeature[] = [
     title: "White-label Launch",
     body: "Ship the complete brokerage stack under your own domain, logo, colors, and operational rules in days instead of quarters.",
     bullets: ["Own domain", "Brand system", "Managed launch"],
-    image: "/screens/client-portal.webp",
-    alt: "Branded client portal dashboard",
-    imageWidth: 1500,
-    imageHeight: 828,
+    mockup: "white-label",
     visualLabel: "White-label suite",
   },
 ];

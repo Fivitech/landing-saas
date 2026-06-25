@@ -7,6 +7,7 @@ import { IbPortalMockup, RebateMockup } from "@/components/site/FeatureMockups";
 import { KycMockup } from "@/components/site/KycMockup";
 import { PaymentMethods } from "@/components/site/PaymentMethods";
 import { CrmDashboardMockup } from "@/components/site/CrmDashboardMockup";
+import { WhiteLabelMockup } from "@/components/site/WhiteLabelMockup";
 
 export function Features({ compact = false }: { compact?: boolean }) {
   const rows = compact ? features.slice(0, 4) : features;
@@ -63,6 +64,8 @@ function FeatureVisual({ feature }: { feature: SiteFeature }) {
           <KycMockup />
         ) : feature.mockup === "crm" ? (
           <CrmDashboardMockup />
+        ) : feature.mockup === "white-label" ? (
+          <WhiteLabelMockup />
         ) : (
           <PaymentMethods />
         )}

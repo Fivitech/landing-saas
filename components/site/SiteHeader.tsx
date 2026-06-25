@@ -22,12 +22,11 @@ export function SiteHeader() {
           <Image
             src="/fivitechLogo.png"
             alt="Fivitech"
-            width={36}
-            height={36}
+            width={56}
+            height={56}
             priority
-            className="h-9 w-9 rounded-lg object-contain"
+            className="h-12 w-12 rounded-lg object-contain"
           />
-          <span className="text-[17px] font-bold tracking-tight">Fivitech</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
