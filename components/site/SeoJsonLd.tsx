@@ -1,4 +1,4 @@
-import { contactDetails } from "@/data/site";
+import { contactDetails, faqs } from "@/data/site";
 
 export function OrganizationJsonLd() {
   const data = {
@@ -10,6 +10,20 @@ export function OrganizationJsonLd() {
     telephone: contactDetails.phone,
     address: contactDetails.address,
     sameAs: ["https://fivitech.com", "https://www.linkedin.com/company/fivitechnologies/"],
+  };
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
+}
+
+export function FaqJsonLd() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
   };
 
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;

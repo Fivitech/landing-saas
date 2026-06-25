@@ -87,9 +87,9 @@ export const features: SiteFeature[] = [
   },
   {
     icon: Repeat2,
-    title: "MT5 & Copy Trading",
-    body: "Support MetaTrader workflows and client allocation tools with the operational layer brokers need around trading infrastructure.",
-    bullets: ["MT5 ready", "Risk limits", "Live allocation"],
+    title: "Trading Platforms & Copy Trading",
+    body: "Connect MetaTrader 4, MetaTrader 5, and cTrader, plus client allocation and copy-trading tools — with the operational layer brokers need around trading infrastructure.",
+    bullets: ["MT4 · MT5 · cTrader", "Risk limits", "Live allocation"],
     image: "/screens/trading-web.webp",
     alt: "MT5 web trader platform interface",
     imageWidth: 1029,
@@ -112,8 +112,9 @@ export const marqueeItems = [
   "Backoffice CRM",
   "KYC & Compliance",
   "Payment Gateways",
-  "MT5 Integration",
+  "MT4 / MT5 / cTrader",
   "Copy Trading",
+  "Mobile Apps",
   "Wallet System",
   "Real-time Reporting",
   "White-label",
@@ -122,8 +123,43 @@ export const marqueeItems = [
 export const seoDefaults = {
   title: "Fivitech FXCRM | Forex CRM, IB Portal & Client Area",
   description:
-    "Launch and scale a forex brokerage with Fivitech's CRM, client portal, IB management, KYC workflows, payment gateways, and MT5-ready operations.",
+    "Launch and scale a forex brokerage with Fivitech's CRM, client portal, IB management, KYC workflows, payment gateways, mobile apps, and MT4/MT5/cTrader-ready operations.",
 };
+
+export type Faq = { question: string; answer: string };
+
+export const faqs: Faq[] = [
+  {
+    question: "How long does it take to implement Fivitech?",
+    answer:
+      "Most brokerages go live in 2–4 weeks for a standard setup. More complex deployments with custom integrations typically take 4–8 weeks. Our team works alongside yours throughout to keep the rollout smooth.",
+  },
+  {
+    question: "Which trading platforms does Fivitech integrate with?",
+    answer:
+      "Fivitech integrates with MetaTrader 4, MetaTrader 5, and cTrader out of the box, and supports custom API integrations for proprietary platforms. We can run a compatibility assessment for your exact stack.",
+  },
+  {
+    question: "Is my data secure with Fivitech?",
+    answer:
+      "Security is foundational. Fivitech uses end-to-end encryption, regular security audits, and compliance with international data-protection standards. Data is held in secure, redundant data centers with 24/7 monitoring.",
+  },
+  {
+    question: "Can I customize the client portal to match my brand?",
+    answer:
+      "Yes. Every plan includes white-labeling — your colors, logo, and domain. The Enterprise plan adds deeper customization including bespoke UI elements and workflows.",
+  },
+  {
+    question: "Do you provide training for our team?",
+    answer:
+      "Yes. Implementation includes admin training, user training, and full documentation. Advanced and Enterprise plans add refresher sessions and ongoing knowledge-base access.",
+  },
+  {
+    question: "What support do you offer?",
+    answer:
+      "All customers get email support with guaranteed response times. Advanced plans add priority support, and Enterprise includes 24/7 dedicated support with a named account manager and emergency phone line.",
+  },
+];
 
 export const contactDetails = {
   email: "contact@fivitechnologies.com",

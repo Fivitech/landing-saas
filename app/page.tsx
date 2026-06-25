@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { CtaFooter } from "@/components/site/CtaFooter";
+import { Faq } from "@/components/site/Faq";
 import { Features } from "@/components/site/Features";
 import { Hero } from "@/components/site/Hero";
 import { HomeContact } from "@/components/site/HomeContact";
 import { Marquee } from "@/components/site/Marquee";
-import { OrganizationJsonLd } from "@/components/site/SeoJsonLd";
+import { MobileApps } from "@/components/site/MobileApps";
+import { Performance } from "@/components/site/Performance";
+import { FaqJsonLd, OrganizationJsonLd } from "@/components/site/SeoJsonLd";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Pricing } from "@/components/site/Pricing";
 import { Stats } from "@/components/site/Stats";
@@ -27,10 +30,14 @@ export default function Home() {
         <HomeContact />
         <Marquee />
         <Features compact />
+        <MobileApps />
         <Stats />
+        <Performance />
         <Pricing compact />
+        <Faq />
         <CtaFooter />
         <OrganizationJsonLd />
+        <FaqJsonLd />
       </main>
       <Footer />
     </SiteShell>
