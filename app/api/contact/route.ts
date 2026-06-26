@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { welcomeEmail } from "@/lib/emails";
 
 type ContactPayload = {
   firstName?: string;
@@ -72,6 +73,21 @@ export async function POST(req: NextRequest) {
       text,
       html: `<p><strong>Name:</strong> ${fullName}</p><p><strong>Company email:</strong> ${body.companyEmail}</p><p><strong>Company name:</strong> ${body.companyName}</p><p><strong>Mobile:</strong> ${body.mobile}</p><p><strong>Country:</strong> ${body.country}</p>`,
     });
+
+    // Branded welcome / auto-reply to the prospect. Non-blocking: a failure here
+    // must not drop the lead (the internal notification above already succeeded).
+    try {
+      const welcome = welcomeEmail({ firstName: body.firstName });
+      await transporter.sendMail({
+        from: `"Fivitech FXCRM" <${fromAddress}>`,
+        to: body.companyEmail!.trim(),
+        subject: welcome.subject,
+        text: welcome.text,
+        html: welcome.html,
+      });
+    } catch (autoReplyError) {
+      console.error("Welcome auto-reply failed (non-blocking):", autoReplyError);
+    }
 
     return NextResponse.json({ message: "Email sent successfully" });
   } catch (error) {
