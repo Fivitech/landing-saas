@@ -1,11 +1,15 @@
 import {
   BadgeCheck,
   CreditCard,
+  Facebook,
   FileCheck2,
+  Instagram,
   LayoutDashboard,
+  Linkedin,
   Network,
   Repeat2,
   ShieldCheck,
+  Twitter,
   type LucideIcon,
 } from "lucide-react";
 
@@ -167,6 +171,13 @@ export const contactDetails = {
   tel: "+971568819915",
   address: "Office: 1F 2696, Building: C1, Fivitech Office, Ajman Free Zone, United Arab Emirates",
 };
+
+export const socialLinks: { label: string; href: string; icon: LucideIcon }[] = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/fivitechnologies/", icon: Linkedin },
+  { label: "Facebook", href: "https://www.facebook.com/FiviTechnologies/", icon: Facebook },
+  { label: "Instagram", href: "https://www.instagram.com/fivitechnologies/", icon: Instagram },
+  { label: "X (Twitter)", href: "https://twitter.com/fivitechnologies", icon: Twitter },
+];
 
 export const complianceHighlights = [
   { icon: BadgeCheck, label: "UAE-based forex technology partner" },

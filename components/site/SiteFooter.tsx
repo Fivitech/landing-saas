@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { contactDetails, navItems } from "@/data/site";
+import { contactDetails, navItems, socialLinks } from "@/data/site";
 
 export function SiteFooter() {
   return (
@@ -28,6 +28,20 @@ export function SiteFooter() {
             CRM, client portal, IB management, payments, and MT5-ready operations for forex brokerages.
           </p>
           <p className="text-xs leading-relaxed text-muted-foreground">{contactDetails.address}</p>
+          <div className="flex gap-3 pt-1">
+            {socialLinks.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="glass-panel flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition hover:text-primary"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
         </div>
 
         <div>
